@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+				padding-left: 20px;
+				padding-top: 20px;
+				position: relative;
+			}
+			#box{
+				height: 100px;
+				width: 100px;
+				border: 5px solid #000;
+				margin-top: 30px;
+			}
+			span{
+				font: bold 20px/50px "宋体";
+			}
+			#set1{
+				display: inline-block;
+				height: 50px;
+				color: #fff;
+				background: red;
+				padding: 0px 10px;
+				cursor: pointer;
+			}
+			#bg{
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				/*height: 614px;*/
+				height: 0px;
+				width: 100%;
+				background: rgba(1,1,1,0.4);			
+				overflow: hidden;
+			}
+			ul{
+				margin: 0px;
+				padding: 0px;
+				height: 400px;
+				width: 400px;
+				border: 10px solid rgba(1,1,1,0.6);
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin-left: -210px;
+				margin-top: -210px;
+				background: #fff;
+			}
+			li{
+				list-style: none;
+			}
+			p{
+				height: 52px;
+				margin: 0px;
+				padding: 24px 0px 25px 24px;
+			}
+			p span{
+				float: left;
+				height: 50px;
+				font: 20px/50px "宋体";
+			}
+			#bg p span:nth-of-type(1){
+				width: 180px;
+			}
+			#red,#yellow,#blue,#w2,#w3,#w4,#h2,#h3,#h4{
+				width: 50px;
+				margin-right: 10px;
+				text-align: center;
+				cursor: pointer;
+			} 
+			#red,#yellow,#blue{
+				border: 1px solid #fff;
+			}
+			#red{
+				background: red;
+				color: #fff;
+			}
+			#yellow{
+				background: yellow;
+				color: #fff;
+			}
+			#blue{
+				background: blue;
+				color: #fff;
+			}
+			#w2,#w3,#w4,#h2,#h3,#h4{
+				border: 1px solid #000;
+			}
+			#bg .bottom{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#bg p:nth-of-type(4) span{
+				float: none;
+				width: 60px;
+				border: 1px solid #000;
+				margin-right: 10px;
+				text-align: center;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<span>
+			请为下面的DIV设置样式：
+		</span>
+		<span id="set1">
+			点击设置
+		</span>
+		<div id="box"></div>
+		<div id="bg">
+			<ul>
+				<li>
+					<p>
+						<span>请选择背景颜色：</span>
+						<span id="red">红</span>
+						<span id="yellow">黄</span>
+						<span id="blue">蓝</span>
+					</p>
+					<p>
+						<span>请设置宽度(px):</span>
+						<span id="w2">200</span>
+						<span id="w3">300</span>
+						<span id="w4">400</span>
+					</p>
+					<p>
+						<span>请设置高度(px):</span>
+						<span id="h2">200</span>
+						<span id="h3">300</span>
+						<span id="h4">400</span>
+					</p>
+					<p class="bottom">
+						<span id="reset1">恢复</span>
+						<span id="sure">确定</span>
+					</p>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var box=document.getElementById('box');
+			var set1=document.getElementById('set1');
+			var bg=document.getElementById('bg');
+			var red=document.getElementById('red');
+			var yellow=document.getElementById('yellow');
+			var blue=document.getElementById('blue');
+			var w2=document.getElementById('w2');
+			var w3=document.getElementById('w3');
+			var w4=document.getElementById('w4');
+			var h2=document.getElementById('h2');
+			var h3=document.getElementById('h3');
+			var h4=document.getElementById('h4');
+			var h4=document.getElementById('h4');
+			var reset1=document.getElementById('reset1');
+			var sure=document.getElementById('sure');
+			//点击设置按钮弹出设置框
+			set1.onclick=function (){
+				bg.style.height='614px';
+			};
+			//点击按钮设置div的颜色
+			red.onclick=function (){
+				box.style.backgroundColor='red';
+				red.style.borderColor='black';
+			};
+			red.onmouseout=function (){
+				red.style.borderColor='#fff';
+			};
+			red.onmouseover=function (){
+				red.style.borderColor='black';
+			};
+			yellow.onclick=function (){
+				box.style.backgroundColor='yellow';
+				yellow.style.borderColor='black';
+			};
+			yellow.onmouseout=function (){
+				yellow.style.borderColor='#fff';
+			};
+			yellow.onmouseover=function (){
+				yellow.style.borderColor='black';
+			};
+			blue.onclick=function (){
+				box.style.backgroundColor='blue';
+				blue.style.borderColor='black';
+			};
+			blue.onmouseout=function (){
+				blue.style.borderColor='#fff';
+			};
+			blue.onmouseover=function (){
+				blue.style.borderColor='black';
+			};
+			//点击按钮设置div的宽度
+			w2.onclick=function (){
+				box.style.width='200px';
+			};
+			w2.onmouseout=function (){
+				w2.style.backgroundColor='#fff';
+			};
+			w2.onmouseover=function (){
+				w2.style.backgroundColor='#ccc';
+			};
+			w3.onclick=function (){
+				box.style.width='300px';
+			};
+			w3.onmouseout=function (){
+				w3.style.backgroundColor='#fff';
+			};
+			w3.onmouseover=function (){
+				w3.style.backgroundColor='#ccc';
+			};
+			w4.onclick=function (){
+				box.style.width='400px';
+			};
+			w4.onmouseover=function (){
+				w4.style.backgroundColor='#ccc';
+			};
+			w4.onmouseout=function (){
+				w4.style.backgroundColor='#fff';
+			};
+			//点击按钮设置div的高度
+			h2.onclick=function (){
+				box.style.height='200px';
+			};
+			h2.onmouseover=function (){
+				h2.style.backgroundColor='#ccc';
+			};
+			h2.onmouseout=function (){
+				h2.style.backgroundColor='#fff';
+			};
+			h3.onclick=function (){
+				box.style.height='300px';
+			};
+			h3.onmouseover=function (){
+				h3.style.backgroundColor='#ccc';
+			};
+			h3.onmouseout=function (){
+				h3.style.backgroundColor='#fff';
+			};
+			h4.onclick=function (){
+				box.style.height='400px';
+			};
+			h4.onmouseover=function (){
+				h4.style.backgroundColor='#ccc';
+			};
+			h4.onmouseout=function (){
+				h4.style.backgroundColor='#fff';
+			};
+			//点击重置按钮重新设置div
+			reset1.onclick=function (){
+				box.style='';
+			};
+			reset1.onmouseover=function (){
+				reset1.style.backgroundColor='#ccc';
+			};
+			reset1.onmouseout=function (){
+				reset1.style.backgroundColor='#fff';
+			};
+			//点击确定按钮div设置成功，设置框消失
+			sure.onclick=function (){
+				bg.style='';
+			};
+			sure.onmouseover=function (){
+				sure.style.backgroundColor='#ccc';
+			};
+			sure.onmouseout=function (){
+				sure.style.backgroundColor='#fff';
+			};
+		</script>
+	</body>
+</html>

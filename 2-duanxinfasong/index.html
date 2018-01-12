@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			/* reset */
+			body{margin:0;}
+			img{border:none; vertical-align: top;}
+			input{padding:0;margin:0;}
+			input{-webkit-tap-highlight-color:transparent;-webkit-appearance: none;}
+			.fl{float: left;}
+			.fr{float: right;}
+			.clearFix:after{content: "";display: block;clear:both;}
+			#phone{
+				height: 594px;
+				width: 289px;
+				background: url(img/1.jpg) no-repeat;
+				margin: 50px auto;
+				position: relative;
+			}
+			#box{
+				position: absolute;
+				left: 26px;
+				top: 87px;
+				height: 420px;
+				width: 238px;
+			}
+			#content{
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				height: 370px;
+				width: 238px;
+				overflow: auto;
+			}
+			#input{
+				position: absolute;
+				left: 0px;
+				bottom: 0px;
+				height: 42px;
+				width: 233px;
+				padding: 7px 0px 0px 4px;
+				border-top: 1px solid #c5c9c8;
+				cursor: pointer;
+			}
+			#portrait{
+				float: left;
+				height: 28px;
+				width: 27px;
+				padding: 7px 0px 0px 4px ;
+				border: 1px solid #C5C9C8;
+				border-radius: 5px;
+				margin-right: 5px;
+			}
+			#text_input{
+				float: left;
+				height: 34px;
+				width: 139px;
+				border: 1px solid #C5C9C8;
+				border-radius: 5px;
+				margin-right: 5px;
+				font: 16px/34px "微软雅黑";
+				outline: none;
+			}
+			#send{
+				float: left;
+				height: 36px;
+				width: 46px;
+				border: 1px solid #C5C9C8;
+				border-radius: 5px;
+				text-align: center;
+				background: none;
+				outline: none;
+				cursor: pointer;
+			}
+			.height{
+				margin: 8px 0px;
+				padding: 0px 5px;
+			}
+			.img1{
+				margin-right: 5px;
+			}
+			.img2{
+				margin-left: 5px;
+			}
+			.text1{
+				max-width: 150px;
+				background: green;
+				opacity: 0.4;
+				color: #fff;
+				font: 16px/24px "宋体";
+				padding: 0px 4px;
+				margin-top: 2px;
+				border-radius: 3px;
+			}
+			.text2{
+				max-width: 150px;
+				background: red;
+				opacity: 0.4;
+				color: #fff;
+				font: 16px/24px "宋体";
+				margin-top: 2px;
+				padding: 0px 4px;
+				border-radius: 3px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<section id="phone">
+			<div id="box">
+				<div id="content">
+				</div>
+				<div id="input">
+					<span id="portrait">
+						<img src="img/2.jpg" id="img"/>
+					</span>
+					<input type="text" name="" id="text_input" value="" />
+					<input type="button" name="" id="send" value="发送" />
+				</div>
+			</div>
+		</section>
+		<script type="text/javascript">
+			var content=document.getElementById("content");
+			var inout=document.getElementById("input");
+			var portrait=document.getElementById("portrait");
+			var img=document.getElementById("img");
+			var text_input=document.getElementById("text_input");
+			var send=document.getElementById("send");
+			var onOff=true;
+			var text1='';
+			portrait.onclick=function (){
+				if(onOff){
+					img.src='img/3.jpg';
+					onOff=false;
+				}else{
+					img.src='img/2.jpg';
+					onOff=true;
+				}
+			};
+			send.onclick=function (){
+				if(text_input.value==''){
+					alert('未输入');
+				}else{
+					if(onOff){
+						content.innerHTML='<p class="clearFix height"><img src="img/2.jpg" alt="" class="fl img1"/><span class="fl text1">'+text_input.value+'</span></p>'+content.innerHTML;
+						text_input.value='';
+					}
+					else{
+						content.innerHTML='<p class="clearFix height"><img src="img/3.jpg" alt="" class="fr img2"/><span class="fr text2">'+text_input.value+'</span></p>'+content.innerHTML;
+						text_input.value='';
+					}
+				}
+			};
+		</script>
+	</body>
+</html>
