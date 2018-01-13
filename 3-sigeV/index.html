@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			section{
+				margin: 0px;
+				height: 800px;
+				width: 530px;
+				margin: 10px auto;
+				/*background: pink;*/
+				position: relative;
+			}
+			input{
+				margin: 0px;
+				display: block;
+				height: 50px;
+				width: 150px;
+				margin: 20px auto;
+			}
+			div{
+				height: 50px;
+				width: 50px;
+				background: red;
+				position: absolute;
+				font: 20px/50px "宋体";
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" name="butt" id="butt" value="按钮" />
+		<section id="box">
+		</section>
+		<script type="text/javascript">
+			var box=document.getElementById("box");
+			var butt=document.getElementById("butt");
+			var num=0;
+			butt.onclick=function(){
+				//num++记录点击的次数
+				num++;
+				//点击第一下时生成向上的V字形；
+				if(num%4==1){
+					//每次都要清空str的内容，下次点击的时候重新生成
+					var str='';
+					for(var i=0;i<9;i++){
+						//当i值小于总数的一半时生成V字形的一半
+						if(i<9/2){
+							str+='<div style="left:'+i%9*53+'px;top:'+i%9*53+'px;"></div>';
+						}
+						//当i值大于总数一半时生成V字形的另一半
+						else{
+							str+='<div style="left:'+i%9*53+'px;top:'+(9-1-i)%9*53+'px;"></div>';
+						}
+					}
+					//注意生成的str直接赋值给box.innerHTML,而不是box.innerHTML+
+					box.innerHTML=str;
+				}
+				if(num%4==2){
+					var str='';
+					for(var i=0;i<9;i++){
+						if(i<9/2){
+							str+='<div style="left:'+(9-1-i)%9*53+'px;top:'+i%9*53+'px;"></div>';
+						}
+						else{
+							str+='<div style="left:'+i%9*53+'px;top:'+i%9*53+'px;"></div>';
+						}
+					}
+					box.innerHTML=str;
+				}
+				if(num%4==3){
+					var str='';
+					for(var i=0;i<9;i++){
+						if(i<9/2){
+							str+='<div style="left:'+i%9*53+'px;top:'+(9-1-i)%9*53+'px;"></div>';
+						}
+						else{
+							str+='<div style="left:'+i%9*53+'px;top:'+i%9*53+'px;"></div>';
+						}
+					}
+					box.innerHTML=str;
+				}
+				if(num%4==0){
+					var str='';
+					for(var i=0;i<9;i++){
+						if(i<9/2){
+							str+='<div style="left:'+i%9*53+'px;top:'+i%9*53+'px;"></div>';
+						}
+						else{
+							str+='<div style="left:'+(9-1-i)%9*53+'px;top:'+i%9*53+'px;"></div>';
+						}
+					}
+					box.innerHTML=str;
+				}
+			};
+		</script>
+	</body>
+</html>
