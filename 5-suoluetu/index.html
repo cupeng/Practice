@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			section{
+				height: 620px;
+				width: 440px;
+				margin: 10px auto;
+				border: 5px solid pink;
+				position: relative;
+			}
+			#img{
+				height: 620px;
+				width: 440px;
+			}
+			a{
+				position: absolute;
+				top: 310px;
+				height: 50px;
+				width: 50px;
+				border-radius: 50%;
+				font: bold 50px/50px "宋体";
+				text-align: center;
+				color: #fff;
+				background: rgba(0,0,0,0.5);
+				text-decoration: none;
+			}
+			#previous{
+				left: 10px;
+			}
+			#next{
+				right: 10px;
+			}
+			ul{
+				margin: 0px;
+				padding: 0px;
+				height: 30px;
+				width: 100%;
+				position: absolute;
+				left: 0px;
+				bottom: 20px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			li{
+				list-style: none;
+				height: 30px;
+				width: 30px;
+				background: yellow;
+				border-radius: 50%;
+				margin-right: 10px;
+				position: relative;
+			}
+			div{
+				height: 0px;
+				width: 0px;
+				border: 10px solid transparent;
+				border-top-color: rgba(0,0,0,0.3);
+				position: absolute;
+				left: 50%;
+				margin-left: -10px;
+				top: -14px;
+				display: none;
+			}
+			li img{
+				height: 93px;
+				width: 66px;
+				position: absolute;
+				left: 50%;
+				margin-left: -33px;
+				top: -107px;
+				display: none;
+			}
+			.active{
+				background: red;
+			}
+			.show{
+				display: block;
+			}
+			.show1{
+				background: #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<img src="img/img (1).jpg" alt="" id="img"/>
+			<a href="javascript:;" id="previous"><</a>
+			<a href="javascript:;" id="next">></a>
+			<ul id="boxes">
+				<!--<li id="box1">
+					<div></div>
+					<img src="img/img (1).jpg" alt="" />
+				</li>
+				<li id="box2">
+					<div></div>
+					<img src="img/img (2).jpg" alt="" />
+				</li>
+				<li id="box3">
+					<div></div>
+					<img src="img/img (3).jpg" alt="" />
+				</li>
+				<li id="box4">
+					<div></div>
+					<img src="img/img (4).jpg" alt="" />
+				</li>
+				-->
+				
+			</ul>
+		</section>
+		<script type="text/javascript">
+			var img=document.getElementById("img");
+			var previous=document.getElementById("previous");
+			var next=document.getElementById("next");
+			var boxes=document.getElementById("boxes");
+			var arr=['img/img (1).jpg','img/img (2).jpg','img/img (3).jpg','img/img (4).jpg'];
+			var str='';
+			for (var i=0;i<arr.length;i++) {
+				str+='<li id="box'+(i+1)+'"><div></div><img src="img/img ('+(i+1)+').jpg" alt="" /></li>';
+			}
+			boxes.innerHTML=str;
+			var lis=boxes.getElementsByTagName("li");
+			var imgs=boxes.getElementsByTagName("img");
+			var divs=boxes.getElementsByTagName("div");
+			lis[0].className='active';
+			//向下翻页按钮的自定义
+			next.leo=0;
+			//点击向下翻页按钮，图片相应的向下翻页
+			next.onclick=function () {
+				next.leo++;
+				if (next.leo>arr.length-1) {
+					next.leo=0;
+				}
+				//调用fn函数，清除所有li属性，给当前li赋值，相应图片显示
+				fn();
+			}
+			//点击向上翻页按钮，图片相应的向上翻页
+			previous.onclick=function () {
+				next.leo--;
+				if (next.leo<0) {
+					next.leo=arr.length-1;
+				}
+				//调用fn函数，清除所有li属性，给当前li赋值，相应图片显示
+				fn();
+			}
+			//for循环中li的移入移出效果
+			for (var i=0;i<arr.length;i++) {
+				lis[i].leo1=i;
+				//li的移入事件，显示出每个li对应的图片的缩略图，同时相对应的小箭头显示，自身颜色相应变化
+				lis[i].onmouseover=function () {
+					//判断移入的是否为当前显示图片对应的li,如果是颜色不变，如果不是颜色变化
+					if (this.leo1==next.leo) {
+						this.className='active';
+					}else{
+						this.className='show1';
+					}
+					divs[this.leo1].className='show';
+					imgs[this.leo1].className='show';
+				}
+				//li的移出事件，每个li对应的图片的缩略图消失，同时相对应的小箭头消失，自身还原为原来的颜色
+				lis[i].onmouseout=function () {
+					if (this.leo1==next.leo) {
+						this.className='active';
+					}else{
+						this.className='';
+					}
+					imgs[this.leo1].className='';
+					divs[this.leo1].className='';
+				}
+			}
+			//点击li，自身颜色变化，li所对应的图片也相应显示
+			for (var i=0;i<arr.length;i++) {
+				lis[i].index1=i;
+				lis[i].onclick=function () {
+					for (var i=0;i<arr.length;i++) {
+						lis[i].className='';
+					}
+					next.leo=this.index1;
+					this.className='active';
+					img.src=arr[this.index1];
+				}
+			}
+			//清除所有li的状态，图片、li显示为当前状态
+			function fn () {
+				for (var i=0;i<arr.length;i++) {
+					lis[i].className='';
+				}
+				img.src=arr[next.leo];
+				lis[next.leo].className='active';
+			}
+		</script>
+	</body>
+</html>
