@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			div{
+				height: 60px;
+				width: 60px;
+				position: absolute;
+				background-image: url(img/2.jpg);
+				transition:.5s;
+				
+				
+			}
+			section{
+				height: 600px;
+				width: 600px;
+				margin: 30px auto;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="sections"></section>
+		<script type="text/javascript">
+			var sections=document.getElementById("sections");
+			var str='';
+			var num=-1;
+			//生成100个div,并且给div相应的背景图定位，显现出2.jpg
+			for (var i=0;i<100;i++) {
+				num++;
+				str+='<div style="left:'+i%10*63+'px;top:'+(Math.floor(num/10))*63+'px;background-position:'+-i%10*60+'px '+-Math.floor(num/10)*60+'px;"></div>';
+			}
+			sections.innerHTML=str;
+			//获取元素div
+			var divs=document.getElementsByTagName('div');
+			//每个div的onmouseover事件时背景图片切换到3.jpg
+			for (var i=0;i<100;i++) {
+				divs[i].onmouseover=function () {
+					this.style.backgroundImage='url(img/3.jpg)';
+				}
+			}
+		</script>
+	</body>
+</html>
