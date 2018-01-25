@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#boxes{
+				height: 553px;
+				width: 875px;
+				background: url(img/bg.png) no-repeat;
+				margin: 30px auto;
+				position: relative;
+			}
+			img{
+				cursor: pointer;
+				border: none;
+			}
+			#img1{
+				height: 245px;
+				width: 448px;
+				position: absolute;
+				left: 49px;
+				top: 114px;
+			}
+			#img2{
+				height: 245px;
+				width: 182px;
+				position: absolute;
+				left: 594px;
+				top: 114px;
+			}
+			#boxes a{
+				text-decoration: none;
+				height: 12px;
+				width: 62px;
+				border: 2px solid #ccc;
+				border-radius: 7px;
+				position: absolute;
+				top: 56px;
+				background: #fff;
+				font: 12px/12px "宋体";
+				text-align: center;
+				color: #000;
+			}
+			#prev{
+				left: 22px;
+			}
+			#next{
+				left: 98px;
+			}
+			span{
+				position: absolute;
+				top: 392px;
+				height: 16px;
+				font: bold 16px/16px "宋体";
+				color: #000;
+			}
+			#boxes span:nth-of-type(1){
+				left: 49px;
+				width: 448px;
+			}
+			#boxes span:nth-of-type(2){
+				left: 559px;
+				width: 248px;
+			}
+			p{
+				position: absolute;
+				left: 49px;
+				top: 365px;
+				height: 18px;
+				margin: 0px;
+				font: bold 18px/18px "宋体";
+				text-align: center;
+			}
+			#boxes p:nth-of-type(1){
+				left: 49px;
+				width: 448px;
+			}
+			#boxes p:nth-of-type(2){
+				left: 559px;
+				width: 248px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="boxes">
+			<img src="" id="img1"/>
+			<img src="" id="img2"/>
+			<a href="javascript:;" id="prev">上一组</a>
+			<a href="javascript:;" id="next">下一组</a>
+			<span></span>
+			<span></span>
+			<p></p>
+			<p></p>
+		</div>
+		<script type="text/javascript">
+			var imgs=document.getElementsByTagName('img');
+			var as=document.getElementsByTagName('a');
+			var spans=document.getElementsByTagName('span');
+			var ps=document.getElementsByTagName('p');
+			var arr1=['第一张','第二张','第三张','第四张','第五张'];
+			var arr2=['第一张','第二张','第三张','第四张'];
+			var pic1=['img/0.jpg','img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg'];
+			var pic2=['img/8.jpg','img/7.jpg','img/6.jpg','img/5.jpg'];
+			//初始化
+			imgs[0].num=0;   //索引值   //var imgs[0].num=0; 错误
+			imgs[1].num=0;
+			imgs[0].src=pic1[imgs[0].num];
+			imgs[1].src=pic2[imgs[1].num];
+			ps[0].innerHTML=arr1[imgs[0].num];
+			ps[1].innerHTML=arr2[imgs[1].num];
+			spans[0].innerHTML=(imgs[0].num+1)+'/'+arr1.length;
+			spans[1].innerHTML=(imgs[1].num+1)+'/'+arr2.length;
+			function left(){
+				if(imgs[0].num>=arr1.length){
+					imgs[0].num=0;
+				}
+				if(imgs[0].num<0){
+					imgs[0].num=arr1.length-1;
+				}
+				imgs[0].src=pic1[imgs[0].num];
+				ps[0].innerHTML=arr1[imgs[0].num];
+				spans[0].innerHTML=(imgs[0].num+1)+'/'+arr1.length;
+			}
+			function right(){
+				if(imgs[1].num>=arr2.length){
+					imgs[1].num=0;
+				}
+				if(imgs[1].num<0){
+					imgs[1].num=arr2.length-1;
+				}
+				imgs[1].src=pic2[imgs[1].num];
+				ps[1].innerHTML=arr2[imgs[1].num];
+				spans[1].innerHTML=(imgs[1].num+1)+'/'+arr2.length;
+			}
+			imgs[0].onclick=function(){
+				imgs[0].num++;
+				left();
+			};
+			imgs[1].onclick=function(){
+				imgs[1].num++;
+				right();
+			};
+			as[1].onclick=function(){
+				imgs[0].num++;
+				imgs[1].num++;
+				left();
+				right();
+			}
+			as[0].onclick=function(){
+				imgs[0].num--;
+				imgs[1].num--;
+				left();
+				right();
+			}
+		</script>
+	</body>
+</html>

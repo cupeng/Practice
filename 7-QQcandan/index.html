@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			ul{
+				margin: 0px;
+				padding: 0px;
+				width: 200px;
+				margin: 20px auto;
+				list-style: none;
+			}
+			#box1,#box2,#box3{
+				list-style: none;
+				width: 100%;
+				border: 1px solid #000;
+				border-top: none;
+			}
+			#box1{
+				border-top: 1px solid #000;
+			}
+			h3{
+				margin: 0px;
+				text-align: center;
+				height: 50px;
+				width: 100%;
+				font: bold 20px/50px "宋体";
+				background: #ffffff;
+				color: #d47474;
+				cursor: pointer;
+			}
+			ol{
+				list-style: none;
+				padding: 0px;
+				display: none;
+			}
+			ol li{
+				height: 40px;
+				width: 100%;
+				text-align: center;
+				font: bold 16px/40px "宋体";
+				background: #fff1ee;
+				color: #ff5c6f;
+				cursor: pointer;
+			}
+			.show{
+				display: block;
+			}
+			.now{
+				background: #ff6699;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="boxes">
+			<li id="box1">
+				<h3>我的好友</h3>
+				<ol>
+					<li>张三</li>
+					<li>张三</li>
+					<li>张三</li>
+					<li>张三</li>
+				</ol>
+			</li>
+			<li id="box2">
+				<h3>我的好友</h3>
+				<ol>
+					<li>张三</li>
+					<li>张三</li>
+					<li>张三</li>
+					<li>张三</li>
+				</ol>
+			</li>
+			<li id="box3">
+				<h3>我的好友</h3>
+				<ol>
+					<li>张三</li>
+					<li>张三</li>
+					<li>张三</li>
+					<li>张三</li>
+				</ol>
+			</li>
+		</ul>
+		<script type="text/javascript">
+			var boxes=document.getElementById("boxes");
+			var hs=boxes.getElementsByTagName("h3");
+			var ols=boxes.getElementsByTagName("ol");
+			for (var i=0;i<hs.length;i++) {
+				hs[i].leo=i;
+				hs[i].onclick=function () {
+					if (ols[this.leo].className=='') {
+						for (var i=0;i<hs.length;i++) {
+							hs[i].className='';	
+							ols[i].className='';
+						}
+						this.className='now';
+						ols[this.leo].className='show';
+						for (var i=0;i<4;i++) {
+							
+						}
+					}else if(ols[this.leo].className=='show'){
+						for (var i=0;i<hs.length;i++) {
+							hs[i].className='';	
+							ols[i].className='';
+						}
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
