@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			section{
+				width: 600px;
+				margin: 40px auto;
+				position: relative;
+			}
+			#box{
+				position: absolute;
+				top:50px;
+			}
+			#box div{
+				width: 50px;
+				height: 50px;
+				position: absolute;
+				background-color: red;
+			}
+			input{
+				margin: 0px;
+				padding: 0px;
+				height: 30px;
+				vertical-align: top;
+			}
+			.but{
+				cursor: pointer;
+				display: inline-block;
+				height: 32px;
+				width: 100px;
+			}
+			.header{
+				height: 80px;
+				font: bold 26px/80px "微软雅黑";
+			}
+	</style>
+	</head>
+	<body>
+		<section>
+			<div class="header">选择颜色，点击按钮生成div</div>
+			<input type="color" name="">
+			<input type="button" value="生成" class="but">
+			<div id="box"></div>
+		</section>
+		<script>
+			var box = document.querySelector('#box');
+			var btn = document.querySelector('input[type=button]');
+			var color = document.querySelector('input[type=color]');
+			var num = 0;
+			var str = '';
+			btn.onclick = function(){
+				
+				fn(10,num*60,color.value);
+				num++;
+			}
+			function fn(a,b,c){
+				
+				for(var i=0;i<a;i++){
+					str += '<div style="left:'+i*60+'px;top:'+(b+80)+'px;background-color:'+c+'">'+i+'</div>';
+				}
+				box.innerHTML += str;
+			}
+			
+		</script>
+	</body>
+</html>

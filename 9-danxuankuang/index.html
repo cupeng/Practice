@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width:50px;
+				height:30px;
+				border: 1px solid #ccc;
+				text-align: center;
+				line-height: 30px;
+				margin-top: 20px;
+				cursor: pointer;
+			}
+			.active{
+				border-color: red;
+			}
+			section{
+				width: 200px;
+				margin: 80px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<form>
+				<label id="rad1">
+					<input type="radio" id="rad1" checked="" name="sex"/>男
+				</label>
+				<label id="rad2">
+					<input type="radio" id="rad2" name="sex"/>女
+				</label>
+				<label id="rad3">
+					<input type="radio" id="rad3" name="sex"/>保密
+				</label>
+			</form>
+			<div class="active">男</div>
+			<div>女</div>
+			<div>保密</div>
+		</section>
+		<script>
+		var divs = document.getElementsByTagName('div');
+			for(i=0;i<divs.length;i++){
+				divs[i].onclick = function(){
+					for(i=0;i<divs.length;i++){
+						divs[i].className = '';
+					}
+					this.className = 'active';
+				}
+			}
+		</script>
+	</body>
+</html>
