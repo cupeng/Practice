@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		body{
+			padding: 100px;
+			font: 20px/40px "微软雅黑";
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		var arr=['100px','abc'-6,[],-98765,34,-2,0,'300', ,function(){alert(1);},null,document,[],true,'200px'-30,'23.45元',5,Number('abc'),function(){alert(3);},'xyz'-90];
+		//alert(Number('abc'-6))  //NaN
+		//alert(isNaN('abc'-6));	  //true
+		   /*
+	     1、找到arr里所有的数字：-98765, 34, -2, 0, 5
+	     2、找到可以转成数字的：'100px', -98765, 34, -2, 0, '300', '23.45元',  5
+		 3、把转成数字以后，最大值判断出来：300
+	     4、把 NaN 所在的位置找出来：1 14 17  19*/
+	
+	
+	     /*
+			-Infinity 代表无限小的数字
+			 Infinity 代表无限大的数字
+			Number.MAX_VALUE  代表js中最大数字。
+			Number.MIN_VALUE  代表js中最小数字。	
+	     */
+		//alert(typeof NaN);		//number
+		var n=-Infinity;;
+	    var num1='找到arr里所有的数字：';
+	    var num2='找到可以转成数字的：';
+	    var num3='把转成数字以后，最大值判断出来：';
+	    var num4='把 NaN 所在的位置找出来：';
+	    document.body.innerHTML+='原数组：'+arr+'</br>';
+	    for(var i=0;i<arr.length;i++){
+	    	/*
+	    	方法一:
+	    	if(typeof arr[i]==='number'&&arr[i]===arr[i]){   判断条件二去除NaN
+	    	*/
+	    	/*
+	    	方法二:
+	    	*/
+	    	
+	    	if(typeof arr[i]==='number'&&!isNaN(arr[i])){
+	    		num1+=arr[i]+' , ';
+	    	}
+	    	if(!isNaN(parseFloat(arr[i]))){
+	    		//console.log(arr[i])
+	    		num2+=arr[i]+' , ';
+	    		if(parseFloat(arr[i])>n){
+	    			n=parseFloat(arr[i])+' , ';
+	    		}
+	    	}
+	    	if(arr[i]!==arr[i]){
+	    		num4+=i+' , ';
+	    	}
+	    }
+	    document.body.innerHTML+=num1+'</br>';
+	    document.body.innerHTML+=num2+'</br>';
+	    document.body.innerHTML+=num3+n+'</br>';
+	    document.body.innerHTML+=num4+'</br>';
+	</script>
+</body>
+</html>

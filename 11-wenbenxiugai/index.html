@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#boxes{
+				margin: 30px auto;
+				width: 569px;
+				height: 530px;
+				position: relative;
+			}
+			#box{
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				width: 569px;
+				margin: 0px;
+			}
+			#add,#subtract{
+				margin: 0px;
+				position: absolute;
+				top: 1px;
+				height: 28px;
+				width: 28px;
+				border-radius: 50%;
+				background: #f804ea;
+				cursor: pointer;
+				text-align: center;
+				font: 28px/28px "微软雅黑";
+			}
+			#add{
+				right: 50px;
+			}
+			#subtract{
+				right: 100px;
+				font: bold 20px/28px "微软雅黑";
+			}
+			dt{
+				margin: 0px;
+				padding-left: 24px;
+				font: bold 14px/30px "宋体";
+				height: 30px;
+				color: #fff; 
+				background: yellowgreen;
+			}
+			dd{
+				margin: 0px;
+				height: 39px;
+				border-top: 1px solid #bfdfde;
+				padding-left: 24px;
+				font: 12px/39px "宋体";
+				position: relative;
+			}
+			div{
+				height: 30px;
+				width: 545px;
+				position: absolute;
+				left: 24px;
+				top: 1px;
+				display: none;
+			}
+			.show{
+				display: block;
+			}
+			.nodisplay{
+				display: none;
+			}
+			input{
+				height: 26px;
+				width: 150px;
+				border: 2px solid #eac483;
+				font: 14px/26px "宋体";
+				outline: none;
+			}
+			div span{
+				font: bold 14px/30px "宋体";
+				padding: 6px 10px;
+				color: yellowgreen;
+				cursor: pointer;
+				background: yellowgreen;
+				color: #fff;
+				margin-left: 10px;
+			}
+			img{
+				margin-left: 10px;
+				cursor: pointer;
+			}
+			#sum{
+				position: absolute;
+				top: 2px;
+				right: 150px;
+				height: 20px;
+				width: 100px;
+				font: 16px/20px "宋体";
+				outline: none;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="boxes">
+			<dl id="box">
+				<dt>分类名称</dt>
+			</dl>
+			<p id="add">+</p>
+			<p id="subtract">—</p>
+			<input type="text" name="" id="sum" value="输入组数" />
+		</section>
+		<script type="text/javascript">
+			var sum=document.getElementById('sum');
+			var num=0;
+			var box=document.getElementById('box');
+			var add=document.getElementById('add');
+			var subtract=document.getElementById('subtract');
+			var str='';
+			//点击添加按钮，增加组数
+			add.onclick=function fn1(){
+				//判断是否输入组数，未输入弹出提示
+				if(sum.value=='输入组数'){
+					alert('请输入组数！');
+					return;
+				}
+				//每次点击添加按钮，num增加一
+				num++;
+				//判断点击次数是否超过输入的组数
+				if(num>sum.value){
+					alert('‘'+(num-1)+'’是最大值！');
+					num=num-1;
+					return;
+				}
+				//每次点击添加按钮时,清空分类组数
+				box.innerHTML='<dt>分类名称</dt>';
+				//调用添加组别函数
+				tab(num);
+			}
+			subtract.onclick=function fn1(){
+				//判断是否输入组数，未输入弹出提示
+				if(sum.value=='输入组数'){
+					alert('请输入组数！');
+					return;
+				}
+				//每次点击减去按钮，num减一
+				num--;
+				//判断点击减去按钮后，组别数是否小于0
+				if(num<0){
+					alert('没有了!');
+					return;
+				}
+				//每次点击添加按钮时,清空分类组数
+				box.innerHTML='<dt>分类名称</dt>';
+				//调用添加组别函数
+				tab(num);
+			}
+			//组别函数
+			function tab(num){
+				//生成组别的for循环
+				for(var i=0;i<num;i++){
+					str+='<dd id="box'+(i+1)+'"><span>修改组别名称</span><img src="img/1.jpg" alt="" /><div>'
+					+'<input type="text" name="" id="" value="修改组别名称" /><span>保存</span><span>取消</span>'
+					+'</div></dd>';
+				}
+				//生成字符串赋值给box
+				box.innerHTML+=str;
+				//每次点击按钮时str清空
+				str='';
+				//for循环生成调用函数
+				for(var i=0;i<num;i++){
+					fn('box'+(i+1));
+				}
+				//每一个组别对应的操作函数
+				function fn(id){
+					//获取变量
+					var box1=document.getElementById(id);
+					var spans=box1.getElementsByTagName('span');
+					var div=box1.getElementsByTagName('div')[0];
+					var img=box1.getElementsByTagName('img')[0];
+					var inputs=box1.getElementsByTagName('input')[0];
+					//点击修改图片
+					img.onclick=function(){
+						div.className='show';
+						spans[0].className='nodisplay';
+					}
+					//点击保存按钮，保存修改后的组别名称
+					spans[1].onclick=function(){
+						div.className='';
+						spans[0].className='';
+						spans[0].innerHTML=inputs.value;
+					}
+					//点击取消按钮，修改框消失
+					spans[2].onclick=function(){
+						div.className='';
+						spans[0].className='';
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
