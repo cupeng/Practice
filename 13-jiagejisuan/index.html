@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			section{
+				height: 500px;
+				width: 700px;
+				margin: 50px auto;
+			}
+			li{
+				padding-top: 4px;
+				height: 30px;
+				font: 16px/30px "宋体";
+			}
+			input{
+				height: 28px;
+				font: bold 16px/30px "宋体";
+				
+			}
+			ul li input:nth-of-type(2){
+				margin-right: 10px;
+			}
+			strong,em, li span,.num1,.num2{
+				display: inline-block;
+				width: 40px;
+				text-align: center;
+				font: bold 16px/30px "宋体";
+			}
+			.num2,strong{
+				width: 50px;
+			}
+			#sum,#sum1{
+				padding-left: 20px;
+				height: 30px;
+				font: 16px/30px "宋体";
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<ul id="boxes">
+				<!--<li id="box1">
+					<input type="button" value="-" />
+					<strong>0</strong>
+					<input type="button" value="+" />
+					单价:
+					<em></em>
+					元 小计：
+					<span>0</span>
+					元
+				</li>-->
+			</ul>
+			<div id="sum">
+				商品合计共：
+				<span class="num1">0</span>
+				件，共花费了：
+				<span class="num2">0</span>
+				元
+			</div>
+			<div id="sum1">
+				其中最贵的商品单价是：
+				<span class="num1">0</span>
+				元
+			</div>
+		</section>
+		<script type="text/javascript">
+			var boxes=document.getElementById('boxes');
+			var lis=boxes.getElementsByTagName('li');
+			var str='';
+			
+			//生成五个li
+			for(var i=0;i<5;i++){
+				str+='<li id="box'+(i+1)+'"><input type="button" value="-" /><strong>0</strong><input type="button" value="+" />单价:<em></em>元 小计：<span>0</span>元</li>';
+			}
+			boxes.innerHTML+=str;
+			//for循环调用有名函数fn,5个li中button都有点击事件
+			for(var i=0;i<5;i++){
+				fn('box'+(i+1),i);
+			}
+			//有名函数fn
+			function fn(id,m){
+				var n=0;
+				var arr=['12.5','10.5','8.5','8','14.5'];
+				var box1=document.getElementById(id);
+				var spans=box1.getElementsByTagName('span');
+				var strongs=box1.getElementsByTagName('strong');
+				var ems=box1.getElementsByTagName('em');
+				var inputs1=box1.getElementsByTagName('input')[0];
+				var inputs2=box1.getElementsByTagName('input')[1];
+				var sum=document.getElementById('sum');
+				var spans1=sum.getElementsByTagName('span');
+				var sum1=document.getElementById('sum1');
+				var spans2=sum1.getElementsByTagName('span');
+				//初始化
+				ems[0].innerHTML=arr[m];
+				spans[0].innerHTML=0;
+				//点击按钮+，小计，合计等相应增加
+				inputs2.onclick=function(){
+					n++;
+					//件数增加
+					strongs[0].innerHTML=n;
+					//小计增加
+					spans[0].innerHTML=n*arr[m];
+					//合计花费增加
+					spans1[1].innerHTML=Number(spans1[1].innerHTML)+Number(arr[m]);
+					//合计件数增加
+					spans1[0].innerHTML=Number(spans1[0].innerHTML)+1;
+//					if(Number(strongs[0].innerHTML)>0&&big<Number(arr[m])){
+//						big=Number(arr[m]);
+//						spans2[0].innerHTML=big;
+//					}
+					fn1();
+				}
+				//点击按钮—，小计，合计等相应减少
+				inputs1.onclick=function(){
+					n--;
+					if(n<0){
+						alert('数量不能小于0');
+						n=0;
+						return;
+					}
+					//件数减少
+					strongs[0].innerHTML=n;
+					//小计减少
+					spans[0].innerHTML=n*arr[m];
+					//合计减少
+					spans1[1].innerHTML=Number(spans1[1].innerHTML)-Number(arr[m]);
+					//合计件减少
+					spans1[0].innerHTML=Number(spans1[0].innerHTML)-1;
+					fn1();
+				}
+			}
+			function fn1(){
+				var ems=boxes.getElementsByTagName('em');
+				var strongs=boxes.getElementsByTagName('strong');
+				var sum1=document.getElementById('sum1');
+				var spans2=sum1.getElementsByTagName('span');
+				var big=0;
+				for(var i=0;i<5;i++){
+					if(Number(strongs[i].innerHTML)!=0&&big<Number(ems[i].innerHTML)){
+						big=Number(ems[i].innerHTML);
+						
+					}
+					spans2[0].innerHTML=big;
+				}
+			}
+		</script>
+	</body>
+</html>

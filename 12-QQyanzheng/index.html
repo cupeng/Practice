@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+			<!--qq：
+					1、qq号中不能包涵空格
+					2、不能有小数
+					3、第一位不能是0
+					4、5-10数
+			-->
+			<style type="text/css">
+				div{
+					height: 30px;
+					width: 300px;
+					margin: 100px auto;
+					vertical-align: top;
+				}
+				#text{
+					padding: 0px;
+					float: left;
+					height: 28px;
+					width: 200px;
+					border: 1px solid #000;
+					font: bold 20px/28px "宋体";
+					margin-right: 20px;
+				}
+				#but{
+					padding: 0px;
+					float: left;
+					height: 30px;
+					width: 60px;
+					border: 1px solid rgba(0,114,255,1);
+					font: bold 20px/28px "宋体";
+					text-align: center;
+					background: rgba(0,114,255,1);
+					color: #fff;
+					cursor: pointer;
+				}
+				#box .onmouseover1{
+					border: 1px solid rgba(0,114,255,0.7);
+					background: rgba(0,114,255,0.7);
+				}
+				div p{
+					text-indent: 2em;
+				}
+				div p:nth-of-type(1){
+					text-indent: 0em;
+				}
+			</style>
+	</head>
+	<body>
+		<div id="box">
+			<input type="text" name="" id="text" value="" />
+			<input type="button" name="" id="but" value="验证" />
+		</div>
+		<div>
+			<p>qq号码验证要求：</p>
+			<p>1、qq号中不能包涵空格</p>
+			<p>2、不能有小数</p>
+			<p>3、第一位不能是0</p>
+			<p>4、5-10数</p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		/*
+		var a='1234';
+		alert(a.length)		//4
+		*/
+		//var a=' ';
+		//alert(isNaN(a));		false
+		var inputs=document.getElementsByTagName('input');
+		var character;
+		//验证按钮的高亮
+		inputs[1].onmouseover=function(){
+			this.className='onmouseover1';
+		}
+		inputs[1].onmouseout=function(){
+			this.className='';
+		}
+		//点击验证按钮对输入的字符串进行判断
+		inputs[1].onclick=function(){
+			var value=inputs[0].value;
+			//判断输入的字符串长度是否在5-10之间
+			if(value.length>=5&&value.length<=10){
+				//for循环对输入的字符串的每一字符进行判断
+				for(var i=0;i<value.length;i++){
+					//if判断字符是否为空格，如果是函数停止，验证不通过
+					if(value[i]==' '){
+						alert('输入了空格！');
+						return;
+					}
+					//if判断字符是否为非数字，如果是函数停止，验证不通过
+					if(typeof value[i] !== 'number'&&isNaN(value[i])){ //后面的判断是把空格去掉
+						alert('输入的内容中还有非数字！')
+						return;
+					}
+					//if判断字符串的第一个字符是否为0，如果是函数停止，验证不通过
+					//parseInt(character).length 是否正确
+					if(value[0]=='0'){
+						alert('第一位不能是0！')
+						return;
+					}
+				}
+			}
+			//判断输入的字符串长度是否在5-10之间，不在5-10之间执行以下函数
+			if(value.length<5||value.length>10){
+				for(var i=0;i<value.length;i++){
+					//if判断字符是否为空格，如果是函数停止，验证不通过
+					if(value[i]==' '){
+						alert('输入了空格！');
+						return;
+					}
+					//if判断字符是否为非数字，如果是函数停止，验证不通过
+					if(typeof value[i] !== 'number'&&isNaN(value[i])){
+						alert('输入的内容中还有非数字！')
+						return;
+					}
+					//if判断字符串的第一个字符是否为0，如果是函数停止，验证不通过
+					//parseInt(character).length  //错误，数字不能直接用leng
+					if(value[0]=='0'){
+						alert('第一位不能是0！')
+						return;
+					}
+				}
+				alert('输入的内容位数必须在5-10之间！');
+				return;
+			}
+			else{
+				alert('验证正确！');
+				return;
+			}
+		}
+	</script>
+</html>
