@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				background: #d7ccca;
+			}
+			section{
+				height: 350px;
+				width: 800px;
+				border: 5px solid #feefea;
+				margin: 40px auto;
+				position: relative;
+				background: rgba(1,1,1,0.1);
+			}
+			#boxes{
+				margin-bottom: -10px;
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				z-index: 10;
+			}
+			#boxes div{
+				height: 80px;
+				width: 80px;
+				background: cornflowerblue;
+				margin-bottom: 10px;
+				font: bold 16px/80px "宋体";
+				text-align: center;
+				color: #fff;
+				cursor: pointer;
+				border-radius: 0px 3px 3px 0px;
+			}
+			#section1 .active{
+				background: pink;
+			}
+			#section1 .active1{
+				background: pink;
+				transform-style: preserve-3d;
+				transform:  perspective(450px) rotateY(-35deg);
+				box-shadow: 0px -15px 80px 0px rgba(0,0,0,0.4);
+				transition: 0.5s;
+			}
+			#section1 .show{
+				display: block;
+			}
+			#section1 .active2{
+				background: pink;
+				width: 100px;
+				transition: 0.5s;
+				box-shadow: 0px 30px 80px rgba(0,0,0,0.5);
+			}
+			ul{
+				margin: 0px;
+				padding: 0px;
+				width: 720px;
+				height: 350px;
+				position: absolute;
+				left: 80px;
+				top: 0px;
+			}
+			li{
+				list-style: none;
+				width: 100%;
+				height: 100%;
+				float: left;
+				position: relative;
+				display: none;
+			}
+			img{
+				width: 100%;
+				height: 100%;
+				cursor: pointer;
+			}
+			p{
+				width: 100%;
+				margin: 0px;
+				height: 30px;
+				position: absolute;
+				left: 0px;
+				bottom: 0px;
+				display: flex;
+				justify-content: space-between;
+			}
+			span{
+				float: left;
+				height: 100%;
+				width: 179px;
+				background: #fdf3f2;
+				font: bold 16px/30px "宋体";
+				color: #f54264;
+				text-align: center;
+				cursor: pointer;
+				word-spacing: 6px;
+				border-radius: 3px 3px 0px 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="section1">
+			<div id="boxes">
+			</div>
+			<ul id="pics">
+			</ul>
+			<script type="text/javascript">
+				var arr=[
+							[ "暖色调", ["暖 色 键 盘","惬 意 时 光","午 后","一 杯 苦 咖 啡"],["images/img1.gif","images/img2.gif","images/img3.gif","images/img4.gif"]],
+
+							["金色夕阳",["街 边 夕 阳","金 色 稻 草"],["images/img5.gif","images/img6.gif"]],
+
+							["灰色格调",["灰 色 通 讯","咖 啡'配'饼 干","孤 单 键 盘","枯 树"],["images/img7.gif","images/img8.gif","images/img9.gif","images/img10.gif"]],
+
+							["baby",["baby 素 材 一","baby 素 材 二"],["images/img11.gif","images/img12.gif"]]
+						];
+				var boxes=document.getElementById('boxes');
+				var pics=document.getElementById('pics');
+				var str='';
+				var str1='';
+				//生成div和ul中的HTML内容
+				for(var i=0;i<arr.length;i++){
+					str+='<div>'+arr[i][0]+'</div>';
+					str1+='<li id="pic'+(i+1)+'"><img src="images/img1.gif"/><p></p></li>';
+				}
+				boxes.innerHTML=str;
+				pics.innerHTML=str1;
+				//生成li中的span
+				var ps=pics.getElementsByTagName('p');
+				for(var i=0;i<arr.length;i++){
+					for(var j=0;j<arr[i][1].length;j++){
+						ps[i].innerHTML+='<span style="width:'+(716/arr[i][1].length)+'px">'+arr[i][1][j]+'</span>';
+					}
+				}
+				//for循环生成调用函数；
+				for(var i=0;i<arr.length;i++){
+					fn(i);
+				}
+				//传参点击函数
+				function fn(m){
+					var pic1=pics.getElementsByTagName('li')[m];
+					var spans=pic1.getElementsByTagName('span');
+					var divs=boxes.getElementsByTagName('div');
+					var lis=pics.getElementsByTagName('li');
+					var img=pic1.getElementsByTagName('img')[0];
+					//初始化
+					img.src=arr[m][2][0];
+					lis[0].className='show';
+					divs[0].className='active2';
+					//div抚摸事件，相应的li图片组显现
+					divs[m].onmouseover=function(){
+						//清空所有的div状态
+						for(var i=0;i<divs.length;i++){
+							divs[i].className='';
+							lis[i].className='';
+						}
+						divs[m].className='active2';
+						lis[m].className='show';
+					}
+					//span抚摸事件，相应的img图片组显现
+					for(var i=0;i<arr[m][2].length;i++){
+						spans[0].className='active';
+						spans[i].leo=i;
+						spans[i].onmouseover=function(){
+							//清空所有的span状态
+							for(var i=0;i<arr[m][1].length;i++){
+								spans[i].className='';
+							}
+							img.src=arr[m][2][this.leo];
+							this.className='active1';
+						}
+					}
+					//img图片的点击事件，相应的span动作
+					img.index=0;
+					img.onclick=function(){
+						img.index++;
+						if(img.index>arr[m][1].length-1){
+							img.index=0;
+						}
+						for(var i=0;i<arr[m][1].length;i++){
+							spans[i].className='';
+						}
+						img.src=arr[m][2][img.index];
+						spans[img.index].className='active1';
+					}
+				}
+			</script>
+		</section>
+	</body>
+</html>

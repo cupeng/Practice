@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.active{
+				background: red;
+			}
+			.show{
+				display: block;
+			}
+			p{
+				display: none;
+			}
+			section{
+				width: 200px;
+				margin: 40px auto;
+			}
+			input{
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<div id='div1'>
+			<input type="button" value="tab1" class="active"/>
+			<input type="button" value="tab2"/>
+			<input type="button" value="tab3"/>
+			<p class="show">p1</p>
+			<p>p2</p>
+			<p>p3</p>
+		</div>
+		<div id='div2'>
+			<input type="button" value="tab1" class="active"/>
+			<input type="button" value="tab2"/>
+			<input type="button" value="tab3"/>
+			<p class="show">p1</p>
+			<p>p2</p>
+			<p>p3</p>
+		</div>
+		<div id='div3'>
+			<input type="button" value="tab1" class="active"/>
+			<input type="button" value="tab2"/>
+			<input type="button" value="tab3"/>
+			<p class="show">p1</p>
+			<p>p2</p>
+			<p>p3</p>
+		</div>
+		</section>
+		<script>
+		fn('div1');
+		fn('div2');
+		fn('div3');
+		for(var i=0;i<3;i++){
+			fn('div'+(i+1));
+		}
+		function fn(div){
+			var divs = document.getElementById(div);
+			var btns = divs.getElementsByTagName('input');
+			var ps = divs.getElementsByTagName('p');
+			
+			for(var i=0;i<btns.length;i++){
+				btns[i].index = i;
+				btns[i].onclick = function(){
+					for(var i=0;i<btns.length;i++){
+						btns[i].className = '';
+						ps[i].className = '';
+					}
+					this.className = 'active';
+					ps[this.index].className = 'show';
+				};
+			}
+		}
+		</script>
+	</body>
+</html>
