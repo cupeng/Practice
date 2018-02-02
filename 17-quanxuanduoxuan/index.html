@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+				background: #e0f1fb;
+			}
+			section{
+				width: 500px;
+				margin: 40px auto;
+			}
+			ul{
+				margin: 0px;
+				padding: 0px;
+				list-style: none;
+				cursor: pointer;
+				border: 4px solid #e0f0fd;
+			}
+			li,p{
+				height: 75.2px;
+				border: 1px solid transparent;
+				border-bottom: 1px solid rgba(1,1,1,0.1);
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+			}
+			p{
+				width: 490px;
+				background: none;
+				border: none;
+				font: 20px/50px "宋体";
+			}
+			a,em{
+				height: 20px;
+				width: 20px;
+				border: 1px solid #da4324;
+				border-radius: 2px;
+				background: #ffffff;
+				margin-left: 20px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+			}
+			em{
+				text-decoration: none;
+			}
+			p em{
+				margin-left: 25px;
+				margin-right: 20px;
+			}
+			span,i{
+				margin-top: -4px;
+				height: 6px;
+				width: 12px;
+				border: 4px solid #da4324 ;
+				border-top: none;
+				border-right: none;
+				transform: rotate(-45deg);
+				display: none;
+			}
+			.active{
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="boxes">
+			<ul>
+				<li>
+					<a href="javascript:;">
+						<span></span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<span></span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<span></span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<span></span>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<span></span>
+					</a>
+				</li>
+			</ul>
+			<p>
+				<em>
+					<i></i>
+				</em>
+				全选
+			</p>
+		</section>
+		<script type="text/javascript">
+			var arr=['#7ec8d5','rgba(159,217,246,0.5)'];
+			var arr1=['#1491cb'];
+			function fn (tagname) {
+				return document.getElementsByTagName(tagname);
+			}
+			var lis=fn ('li');
+			var as=fn ('a');
+			var spans=fn ('span');
+			var ems=fn ('em');
+			var is=fn ('i');
+			var num=0;
+			//var onOff=true;
+			//每个li颜色的初始化
+			for (var i=0;i<lis.length;i++) {
+				lis[i].style.backgroundColor=arr[i%2];
+			}
+			for (var i=0;i<lis.length;i++) {
+				lis[i].leo=i;
+				//每个li的鼠标滑过事件，划过时颜色变成数组arr[2]对应的颜色
+				lis[i].onmouseover=function () {
+					this.style.backgroundColor=arr1[0];
+				}
+				//每个li的鼠标移除事件，移除时颜色还原为初始化时的颜色
+				lis[i].onmouseout=function () {
+					this.style.backgroundColor=arr[this.leo%2];
+				}
+			}
+			for (var i=0;i<lis.length;i++) {
+				as[i].index=i;
+				as[i].onOff=true;
+				var num=0;
+				//方框a的点击事件
+				as[i].onclick=function () {
+					//判断方框a当前的状态，如果是没点开，点击时候对号显现，li给背景图片
+					if (this.onOff) {
+						spans[this.index].className='active';
+						lis[this.index].style.backgroundImage='url(img/1.jpg)';
+						lis[this.index].style.backgroundPosition='0px '+-75.2*this.index+'px';
+						this.onOff=false;
+						num++;
+					//判断方框a当前的状态，如果是点开，点击时候对号消失，li给背景图片也消失，li还原为初始化时候的颜色
+					}else{
+						spans[this.index].className='';
+						lis[this.index].style.backgroundImage='';
+						this.onOff=true;
+						num--;
+					}
+					//判断点开方框a的数量，如果5个都打开了，下面代表全选的方框触发
+					if (num==5) {
+						is[0].className='active';
+						ems[0].onOff=false;
+					}
+					//判断点开方框a的数量，如果5个不是都打开了，下面代表全选的方框不触发
+					if (num!=5) {
+						is[0].className='';
+						ems[0].onOff=true;
+					}
+				}
+			}
+			ems[0].onOff=true;
+			//代表全选的方框的点击事件
+			ems[0].onclick=function () {
+				//判断代表全选的方框em的当前状态。如果是不触发的，点击时触发。所有的方框a触发，所有的li也触发，有相应的背景图片
+				if (ems[0].onOff) {
+					num=5;
+					is[0].className='active';
+					for (var i=0;i<lis.length;i++) {
+						as[i].onOff=false;
+						spans[i].className='active';
+						lis[i].style.backgroundImage='url(img/1.jpg)';
+						lis[i].style.backgroundPosition='0px '+-75.2*i+'px';
+					}
+					ems[0].onOff=false;
+				//判断代表全选的方框em的当前状态。如果是触发的，点击时不触发。所有的方框a还原为不触发状态，所有的li也还原为不触发，有相应的背景图片消失
+				}else{
+					num=0;
+					is[0].className='';
+					for (var i=0;i<lis.length;i++) {
+						as[i].onOff=true;
+						spans[i].className='';
+						lis[i].style.backgroundImage='';
+					}
+					ems[0].onOff=true;
+				}
+			}
+		</script>
+	</body>
+</html>
