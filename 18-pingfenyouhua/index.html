@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+				background: rgba(207,220,41,0.4);
+			}
+			section{
+				width: 600px;
+				margin: 200px auto;
+			}
+			p{
+				height: 100px;
+				width: 600px;
+				position: relative;
+			}
+			a{ 
+				height: 100px;
+				width: 100px;
+				position: absolute;
+				top: 0px;
+				text-decoration: none;
+				font: 100px/100px "宋体";
+				transition: 0.1s;
+			}
+			.move1{
+				height: 120px;
+				top: -20px;
+				color: yellow;
+				text-shadow: 0 30px 80px #914d26;
+			}
+			.move2{
+				height: 120px;
+				top: -20px;
+				color: green;
+				text-shadow: 0 30px 80px #3d7751;
+			}
+			.move3{
+				height: 120px;
+				top: -20px;
+				color: yellow;
+			}
+			.move4{
+				height: 120px;
+				top: -20px;
+				color: green;
+			}
+			.color1{
+				color: yellow;
+			}
+			.color2{
+				color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<p>
+				<a href="javascript:;">★</a>
+				<a href="javascript:;">★</a>
+				<a href="javascript:;">★</a>
+				<a href="javascript:;">★</a>
+				<a href="javascript:;">★</a>
+			</p>
+		</section>
+		<script type="text/javascript">
+			var as=document.getElementsByTagName('a');
+			var onOff=true;
+			var num=0;
+			for (var i=0;i<as.length;i++) {
+				as[i].style.left=i*110+'px';
+			}
+			for (var i=0;i<as.length;i++) {
+				as[i].index=i;
+				//每个星星的划过事件，划过时星星颜色相应变化
+				as[i].onmouseover=function () {
+					//清空所有星星的颜色，其中主要清空的是星星点击事件时加上的颜色
+					for (var i=0;i<as.length;i++) {
+						as[i].className='';
+					}
+					//判断划过的星星数是都是第一个或者第二个，如果是颜色变成绿色
+					if (this.index<=1) {
+						this.className='move2';
+						for (var i=0;i<this.index;i++) {
+							as[i].className='color2';
+						}
+					//判断划过的星星数是大于2，如果是所有的颜色都变成黄色
+					}else{
+						this.className='move1';
+						for (var i=0;i<this.index;i++) {
+							as[i].className='color1';
+						}
+					}
+				}
+			}
+			for(var i=0;i<as.length;i++){	
+				//每个星星的鼠标离开事件，鼠标离开时星星颜色变成前面一次点击事件时星星的颜色
+				as[i].onmouseout=function () {
+					//清空所有星星的颜色
+					for (var i=0;i<as.length;i++) {
+						as[i].className='';
+					}
+					//判断鼠标离开时的星星数是都是第一个或者第二个，如果是颜色变成绿色
+					if (num<=1) {
+						for (var i=0;i<num+1;i++) {
+							as[i].className='color2';
+						}
+					//判断鼠标离开时的星星数是大于2，如果是所有的颜色都变成黄色
+					}else{
+						for (var i=0;i<num+1;i++) {
+							as[i].className='color1';
+						}
+					}
+				}
+			}
+			for (var i=0;i<as.length;i++) {
+				as[i].index=i;
+				//每个星星的点击事件，鼠标点击时颜色相应变化
+				as[i].onclick=function () {
+					num=this.index;
+				}
+			}
+		</script>
+	</body>
+</html>

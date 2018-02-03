@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+				background: url(img/0.jpg);
+			}
+			section{
+				height: 550px;
+				width: 900px;
+				padding: 25px 25px;
+				border: 5px solid #fec8e2;
+				border-radius: 20px;
+				margin: 30px auto;
+				position: relative;
+				background: #272d3b;
+				box-shadow: 0 0px 50px rgba(0,93,172,1);
+			}
+			ul{
+				width: 100%;
+				margin: 0px;
+				padding: 0px;
+				list-style: none;
+				position: relative;
+			}
+			li{
+				position: absolute;
+				height: 50px;
+				width: 100px;
+				border: 1px solid rgba(32,49,77,0.2);
+				font: bold 20px/50px "宋体";
+				text-align: center;
+				background: rgba(52,95,189,0.5);
+				color: #fff;
+				cursor: pointer;
+				border-radius: 3px;
+			}
+			img{
+				height: 338px;
+				width: 600px;
+				position: absolute;
+				left: 50%;
+				margin-left: -300px;
+				top: 50%;
+				margin-top: -169px;
+				box-shadow: 0 0px 80px rgba(0,0,0,0.5);
+			}
+			.active{
+				background: #fec8e2;
+				color: #0e9ae0;
+			}
+			div{
+				position: absolute;
+				left: 135px;
+				top: 51px;
+				height: 30px;
+				width: 30px;
+				margin-top: -15px;
+			}
+			span{
+				position: absolute;
+				left: 0px;
+				top: 50%;
+				height: 0px;
+				width: 30px;
+				border-bottom: 4px solid #0e9ae0;
+				margin-top: -2px;
+				border-radius: 2px;
+			}
+			i{
+				position: absolute;
+				top: 0px;
+				left: 50%;
+				width: 0px;
+				height: 30px;
+				border-left: 4px solid #0e9ae0;
+				margin-left: -2px;
+				border-radius: 2px;
+			}
+			.rotate{
+				animation: move 1s linear infinite;
+			}
+			@keyframes move{
+				0%{
+					transform: rotate(0deg);
+				}
+				100%{
+					transform: rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<ul>
+			</ul>
+			<img src="img/img (1).JPG" alt="" />
+			<div class="rotate">
+				<span></span>
+				<i></i>
+			</div>
+		</section>
+		<script type="text/javascript">
+			function getTagename (tageName,context) {
+				return (context||document).getElementsByTagName(tageName);
+			}
+			var uls=getTagename('ul')[0];
+			var img=getTagename('img')[0];
+			var divs=getTagename('div')[0];
+			var str='';
+			var arr=['img/img (1).JPG','img/img (2).JPG','img/img (3).JPG','img/img (4).JPG','img/img (5).JPG','img/img (6).JPG','img/img (7).JPG','img/img (8).JPG','img/img (9).JPG','img/img (10).JPG','img/img (11).JPG','img/img (12).JPG','img/img (13).JPG','img/img (14).JPG','img/img (15).JPG','img/img (16).JPG'];
+			var n=arr.length/2;
+			for (var i=0;i<arr.length;i++) {
+				if (i<n) {
+					str+='<li style="left:0px;top:'+i%n*70+'px;">'+'Eason '+i+'</>';
+				} else{
+					str+='<li style="right:0px;top:'+i%n*70+'px;">'+'Eason '+i+'</>';
+				}
+			}
+			uls.innerHTML+=str;
+			var lis=getTagename('li');
+			var prev=lis[0];
+			var num=0;
+			lis[0].className='active';
+			for (var i=0;i<arr.length;i++) {
+				lis[i].lc=i;
+				lis[i].onmouseover=function () {
+					clearInterval(timer);
+					num=this.lc;
+					prev.className='';
+					this.className='active';
+					if (this.lc<n) {
+						divs.style.left='135px';
+						img.src=arr[this.lc];
+					} else{
+						divs.style.left='785px';
+						img.src=arr[23-this.lc];
+					}
+					divs.style.top=this.lc%n*70+51+'px';
+					prev=this;
+				}
+				lis[i].onmouseout=function () {
+					autoPlay ();
+				}
+			}
+			function autoPlay () {
+				timer=setInterval(function () {
+					prev.className='';
+					if (num<n) {
+						num++;
+						if (num==n) {
+							num=arr.length-1;
+						}
+					} else{
+						num--;
+						if (num==n-1) {
+							num=0;
+						}
+					}
+					if (num<n) {
+						img.src=arr[num];
+						divs.style.left='135px';
+					} else{
+						img.src=arr[23-num];
+						divs.style.left='785px';
+					}
+					lis[num].className='active';
+					divs.style.top=num%n*70+51+'px';
+					prev=lis[num];
+				},800);
+			}
+			autoPlay ();
+		</script>
+	</body>
+</html>
