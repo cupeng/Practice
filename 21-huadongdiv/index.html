@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			div{
+				height: 50px;
+				width: 50px;
+				background: red;
+				position: absolute;
+				top: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript" src="mTween.js"></script>
+		<script type="text/javascript" src="tween.js"></script>
+		<script type="text/javascript">
+			var len=20;
+			var str='';
+			for (i=0;i<len;i++) {
+				str+='<div style="left:'+i*55+'px;"></div>';
+			}
+			document.body.innerHTML+=str;
+			var divs=document.getElementsByTagName('div');
+			var timer=null;
+			var num=0;
+			var n=0;
+			var target=400;
+			onOff=true;
+			document.onclick=function() {
+				if (!onOff) {
+					return;
+				}
+				onOff=false;
+				timer=setInterval(function () {
+					mTween(divs[num],'top',target,300,'elasticOut',function () {
+						n++;
+						if (n==len) {
+							n=0;
+							target=target==400?0:400;
+							onOff=true;
+						}
+					});
+					num++;
+					if (num>=len){
+						num=0;
+						clearInterval(timer);
+					}
+				},300);
+			}
+			
+		</script>
+	</body>
+</html>

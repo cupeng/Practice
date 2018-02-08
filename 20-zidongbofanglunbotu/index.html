@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/0-reset.css"/>
+	<style>
+		.bg{
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			background: url(images/0.jpg);
+			-webkit-filter: blur(10px);
+		}
+		#box{
+			width: 1024px;
+			height: 560px;
+			position: relative;
+			margin: 50px auto;
+			overflow: hidden;
+		}
+		#box .img{
+			width: 100%;
+			height: 100%;
+		}
+		#box a{
+			text-decoration: none;
+			position: absolute;
+			font-size: 100px;
+			font-weight: bold;
+			background: rgba(0,0,0,.7);
+			color: #fff;
+			width: 100px;
+			height: 100px;
+			text-align: center;
+			line-height: 100px;
+			top:50%;
+			margin-top: -50px;
+			border-radius: 100%;
+		}
+		.left{
+			left: 20px;
+		}
+		.right{
+			right: 20px;
+		}
+		#box ul{
+			margin:0;
+			padding: 0;
+			width:100%;
+			text-align: center;
+			margin-top: -50px;
+		}
+		#box ul li{
+			list-style: none;
+			width: 30px;
+			height: 30px;
+			border-radius:50%;
+			display: inline-block;
+			background: #fff;
+			cursor: pointer;
+			margin-right: 10px;
+		}
+		#box ul li:hover{
+			background: #0f2427;
+			box-shadow: 0px 0px 10px #a7b3c2,0px 0px 14px #a7b3c2;
+		}
+		#box .active {
+			background: red;
+		}
+		#box a:hover{
+			animation: scale 1s ease-in-out infinite;
+		}
+		@-webkit-keyframes scale
+		{
+			0%{
+				transform:scale(1);
+				opacity:1;
+			}
+			60%
+			{
+				transform:scale(1.2);
+				opacity:0.4;
+			}
+			100%
+			{
+				transform:scale(1);
+				opacity:1;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="bg"></div>
+	<div id='box'>
+		<img src="" alt="" class="img">
+		<a href="javascript:;" class="left"><</a>
+		<a href="javascript:;" class="right">></a>
+		<ul>
+			<!-- <li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li> -->
+		</ul>
+	</div>
+	<script type='text/javascript'>
+		//获取屏幕宽高
+		var winWid=window.innerWidth;
+		document.body.style.width=winWid+'px';
+		var winHei=window.innerHeight;
+		document.body.style.height=winHei+'px';
+		var box = document.querySelector('#box');
+		var oImg = box.querySelector('img');
+		var oUl = box.querySelector('ul');
+		var  oa = box.querySelectorAll('a');
+		var num = 0;
+		var str = '';
+		var timer = null;
+		var arr = ['1.jpg','2.jpg','3.jpg','4.jpg'];
+			for(var i=0;i<arr.length;i++){
+				str += '<li></li>';
+			}
+			oUl.innerHTML = str;
+		var alis = oUl.querySelectorAll('li');
+		fnbig();
+		function fnbig(){
+			oImg.src ='images/'+ arr[num];
+			oImg.style.height='100%';
+			oImg.style.width='100%';
+			alis[num].className = 'active';
+		}
+		//点击左边按钮向上翻转图片
+		oa[0].onclick = function(){
+			num--;
+			if(num < 0){
+				num = arr.length-1;
+			}
+			for(var i=0;i<alis.length;i++){
+				alis[i].className = '';
+			}
+			fnbig();
+		}
+		//点击右边按钮向下翻转图片
+		oa[1].onclick = function(){
+			num++;
+			if(num > arr.length-1){
+				num = 0;
+			}
+			for(var i=0;i<alis.length;i++){
+				alis[i].className = '';
+			}
+			fnbig();
+		}
+		for(var i=0;i<alis.length;i++){
+			alis[i].index = i;
+			alis[i].onclick = function(){
+				for(var i=0;i<alis.length;i++){
+					alis[i].className = '';
+				}
+				this.className = 'active';
+				oImg.src ='images/'+ arr[this.index];
+				num = this.index;
+			}
+		}
+		play();
+		function play(){
+			timer = setInterval(fn,1000)
+			function fn(){
+				num++;
+				if(num > arr.length-1){
+					num = 0;
+				}
+				for(var i=0;i<alis.length;i++){
+					alis[i].className = '';
+				}
+				fnbig();
+			}
+		}
+		box.onmouseover = function(){
+			clearInterval(timer);
+		}
+		box.onmouseout = function(){
+			play();
+		}
+	</script>
+</body>
+</html>
