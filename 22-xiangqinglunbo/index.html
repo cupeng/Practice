@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="mTween.js"></script>
+		<script type="text/javascript" src="tween.js"></script>
+		<style>
+			#box{
+				width:500px;
+				height: 500px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			ul,p{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				list-style: none;
+				width: 2500px;
+				height: 500px;
+				position: relative;
+				left: 0;
+				bottom: 0;
+			}
+			li{
+				position: relative;
+				width: 500px;
+				height: 500px;
+				float: left;
+				
+			}
+			img{
+				width: 100%;
+				height: 100%;
+				vertical-align: middle;
+			}
+			p{
+				position: absolute;
+				bottom: -50px;
+				left: 0;
+				width: 100%;
+				height: 50px;
+				background: #000;
+				opacity: .5;
+				color: #fff;
+				text-align: center;
+				font: 20px/50px "微软雅黑";
+			}
+		</style>
+	</head>
+	<body>
+		<div id='box'>
+			<ul>
+				<li>
+					<img src="img/0.jpg">
+					<p>图片一</p>
+				</li>
+				<li>
+					<img src="img/1.jpg">
+					<p>图片二</p>
+				</li>
+				<li>
+					<img src="img/2.jpg">
+					<p>图片三</p>
+				</li>
+				<li>
+					<img src="img/3.jpg">
+					<p>图片四</p>
+				</li>
+				<li>
+					<img src="img/4.jpg">
+					<p>图片五</p>
+				</li>
+			</ul>
+		</div>
+		<script>
+			var box = document.getElementById('box');
+			function getTagName(TagName){
+				return document.getElementsByTagName(TagName);
+			}
+			var ul = getTagName('ul')[0];
+			var lis = getTagName('li');
+			var ps = getTagName('p');
+			var timer = '';
+			var num = -1;
+			var target = -500;
+			//自动播放
+			autoplay();
+			//封装函数
+			function autoplay(){
+				//设置定时器
+				timer = setInterval(function(){
+					//控制图片信息的num+1,第一个图片信息出现
+					num++;
+					if(num > ps.length-1){
+						num=0;
+						}
+					//图片信息从-50px运动到0
+					mTween(ps[num],'bottom',0,500,'linear',function(){
+						//当图片信息运动到0，停留半秒钟
+						setTimeout(function(){
+							//让图片信息回到-50px的位置
+							mTween(ps[num],'bottom',-50,500,'linear',function(){
+							//当图片信息回到指定位置再让图片滑动
+								mTween(ul,'left',target,500,'linear',function(){
+									//每次向左移动一张图片的位置
+									target-=500;
+								})	
+							})
+						},500)
+						
+					})
+					//当最后一张图片显示之后，所有图片的目标位置回到500px，让第一张图片出现
+					if(target == -2000){
+						target = 500;
+					}
+					
+				},2000)
+			}
+			
+		</script>
+	</body>
+</html>

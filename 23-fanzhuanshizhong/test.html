@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+				background: url(img/11.jpg);
+			}
+			#clock{
+				margin: 0px;
+				padding: 0px;
+				margin: 300px 0px 0px 150px;
+				height: 105px;
+				width: 680px;
+			}
+			#clock li{
+				list-style: none;
+				height: 105px;
+				width: 75px;
+				float: left;
+				margin-right: 10px;
+				overflow: hidden;
+				position: relative;
+				box-shadow: 0px 0px 100px #375daf;
+				border-radius: 10px;
+			}
+			#clock div{
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				top: 0px;	
+				left: 0px;
+			}
+			img{
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				height: 100%;
+				width: 100%;
+				vertical-align: top;
+				border-radius: 10px;
+			}
+			#eye{
+				margin: 0px;
+				padding: 0px;
+				height: 200px;
+				width: 200px;
+				border: 1px solid #3e517b;
+				background: pink;
+				margin: 50px auto;
+				position: absolute;
+				left: 970px;
+				top: 200px;
+				border-radius: 50%;
+				box-shadow: 0px 0px 80px #375daf;
+			}
+			#eye li{
+				list-style: none;
+			}
+			#eye li:nth-of-type(1),#eye li:nth-of-type(2){
+				list-style: none;
+				height: 100px;
+				width: 100px;
+				border: 1px solid #3e517b;
+				border-radius: 50%;
+				background: #fff;
+				position: absolute;
+				top: 0;
+				z-index: 10;
+			}
+			#eye li:nth-of-type(1){
+				left: 50%;
+				margin-left: 10px;
+			}
+			#eye li:nth-of-type(2){
+				right: 50%;
+				margin-right: 10px;
+			}
+			#eye div{
+				height: 40px;
+				width: 40px;
+				border: 1px solid #3e517b;
+				border-radius: 50%;
+				background: #3e517b;
+				position: absolute;
+				left: 48px;
+				top: 50%;
+				margin-left: -0px;
+				margin-top: -0px;
+				box-shadow: 0px 0px 10px #375daf;
+			}
+			#eye li:nth-of-type(3){
+				height: 170px;
+				width: 170px;
+				border-radius: 50%;
+				background: pink;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -85px;
+				margin-top: -100px;
+				z-index: 5;
+			}
+			#eye li:nth-of-type(4){
+				height: 160px;
+				width: 160px;
+				border-radius: 50%;
+				background: #fff;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -80px;
+				margin-top: -78px;
+				z-index: 2;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="clock">
+			<li>
+				<div><img src="img/0.jpg" alt="" /></div>
+			</li>
+			<li>
+				<div><img src="img/1.jpg" alt="" /></div>
+			</li>
+			<li>
+				<img src="img/c.jpg" alt="" />
+			</li>
+			<li>
+				<div><img src="img/3.jpg" alt="" /></div>
+			</li>
+			<li>
+				<div><img src="img/4.jpg" alt="" /></div>
+			</li>
+			<li>
+				<img src="img/c.jpg" alt="" />
+			</li>
+			<li>
+				<div><img src="img/6.jpg" alt="" /></div>
+			</li>
+			<li>
+				<div><img src="img/7.jpg" alt="" /></div>
+			</li>
+		</ul>
+		<ul id="eye">
+			<li>
+				<div></div>
+			</li>
+			<li>
+				<div></div>
+			</li>
+			<li></li>
+			<li></li>
+		</ul>
+		<script type="text/javascript" src="mTween.js"></script>
+		<script type="text/javascript" src="tween.js"></script>
+		<script type="text/javascript">
+			function getTagename (tageName,context) {
+				return (context||document).getElementsByTagName(tageName);
+			}
+			function $ (id) {
+				return document.getElementById(id);
+			}
+			var divall=document.querySelectorAll('#clock div');
+			var img=document.querySelectorAll('div img');
+			var time=getTime ();
+			for (var i=0;i<time.length;i++) {
+				img[i].src = 'img/'+time[i]+'.jpg';
+			}
+			//调用自动翻转函数
+			for (var i=0;i<divall.length;i++) {
+				autoPlay (i);
+			}
+			//自动翻转函数
+			function autoPlay (a) {
+				var divs=document.querySelectorAll('#clock div')[a];
+				var imgs=divs.querySelectorAll('img');
+				var img=document.querySelectorAll('#clock li>img');
+				var timer=null;
+				divs.lc=time[a];
+				//定时器，每过1秒钟，每个位置上的时钟图片都随着时间相应变化
+				timer=setInterval(function(){
+					var time=getTime ();
+					//如果时钟、分钟、秒钟相应每一位如果和前一秒钟不一样的就滑动到下个相应数字
+					if (divs.lc!==time[a]) {
+						//imgs[0].src = 'img/'+time[a]+'.jpg';//不能在此处换图片：翻转前不能先给图片换了，要在翻转过程中换
+						mTween(divs,'height',0,200,'linear',function(){
+							//imgs[0].src = 'img/'+time[a]+'.jpg';//能在此处换图片
+							mTween(divs,'height',105,200,'linear')
+						})
+						mTween(divs,'top',52.5,200,'linear',function(){
+							imgs[0].src = 'img/'+time[a]+'.jpg';//也能在此处换图片，以上两个位置写一个就行
+							mTween(divs,'top',0,200,'linear')
+						})
+					}
+					//记录时钟、分钟、秒钟相应每一位的前一秒数字
+					divs.lc=time[a];
+					//点闪烁的实现
+					for(var i=0;i<img.length;i++){
+						img[i].src = 'img/c.jpg';
+					}
+					//延时半秒闪烁
+					setTimeout(function(){
+						for(var i=0;i<img.length;i++){
+							img[i].src = 'img/b.jpg';
+						}
+					}, 500)
+				}, 1000);
+			}
+			var eye=$('eye');
+			var eye_divs=document.querySelectorAll('#eye div');
+			//自动播放笑脸的眼睛转动
+			autoPlay_eye ();
+			var timer_dance=null;
+			function autoPlay_eye () {
+				timer_dance=setInterval(function () {
+					eye_move ();
+				},2000);
+			}
+			eye_move ();
+			//眼睛移动
+			function eye_move () {
+				for (var i=0;i<eye_divs.length;i++) {
+					eye_move(i);
+				}
+				function eye_move (b) {
+					mTween(eye_divs[b],'left',10,1000,'linear',function(){
+						mTween(eye_divs[b],'left',48,1000,'linear');
+					})
+				}
+			}
+			//补零函数：时钟、分钟、秒钟不大于10的话前面补‘0’
+			function toTwo (n) {
+				return n<10?'0'+n:''+n;
+			}
+			//获取时间
+			function getTime () {
+				var date=new Date();
+				//获取小时
+				var h=date.getHours();
+				//获取分钟
+				var m=date.getMinutes();
+				//获取秒钟
+				var s=date.getSeconds();
+				//时钟、分钟、秒钟不大于10的话前面补‘0’，然后连城字符串
+				var time=toTwo (h)+toTwo(m)+toTwo(s);
+				return time;
+			}
+			</script>
+	</body>
+</html>
