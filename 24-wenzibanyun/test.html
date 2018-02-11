@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+				background: url(img/0.jpg);
+			}
+			section{
+				height: 400px;
+				width: 900px;
+				margin: 100px auto 0px;
+			}
+			div{
+				float: left;
+				height: 400px;
+			}
+			section>div:nth-of-type(1){
+				width: 292px;
+			}
+			section>div:nth-of-type(2){
+				width: 300px;
+			}
+			section>div:nth-of-type(3){
+				width: 292px;
+			}
+			p{
+				height: 250px;
+				width: 250px;
+				margin: 20px auto 0px;
+				color: #fff;
+				font: bold 20px/30px "宋体";
+				text-shadow: 0px 0px 30px #375daf;
+				background: rgba(26,34,70,0.3);
+				border-radius: 10px;
+			}
+			span{
+				display: block;
+				height: 50px;
+				width: 80px;
+				margin: 0px auto;
+				color: #fff;
+				font: bold 20px/50px "宋体";
+				text-align: center;
+				
+			}
+			ol{
+				margin: 0px;
+				padding: 0px;
+				height: 200px;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			ol li{
+				list-style: none;
+				width: 70%;
+				height: 50px;
+				margin: 20px auto;
+				color: #fff;
+				cursor: pointer;
+				position: relative;
+				overflow: hidden;
+				border-radius: 10px;
+			}
+			ol li:hover{
+				transform: scale(1.2);
+			}
+			i{
+				position: absolute;
+				top: 0px;
+				height: 100%;
+				font: bold 50px/50px "宋体";	
+				text-align: center;	
+				text-shadow: 0px 0px 80px #375daf;	
+				background: linear-gradient(135deg,rgba(255,255,255,0) 40%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 60%) no-repeat;
+				background-position-y: 0px;
+			}
+			ol li:nth-of-type(1) i{
+				left: -100px;
+				background-position-x: 300px;
+			}
+			ol li:nth-of-type(2) i{
+				right: -100px;
+				background-position-x: -300px;
+			}
+			ul{
+				padding: 0px;
+				margin: 20px auto 0px;
+				height: 30px;
+				width: 140px;
+				position: relative;
+			}
+			ul li{
+				list-style: none;
+				width: 30px;
+				height: 100%;
+				position: absolute;
+				top: 0px;
+				border-radius: 50%;
+				font: bold 30px/30px "宋体";
+				text-align: center;
+				color: #fff;
+				text-shadow: 0px 0px 80px #375daf;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<div>
+				<p></p>
+				<span></span>
+			</div>
+			<div>
+				<ol id="buttons">
+					<li>
+						<i>>>>>>>>>>>>>>>>></i>
+					</li>
+					<li>
+						<i><<<<<<<<<<<<<<<<</i>
+					</li>
+				</ol>
+				<ul id="shine">
+				</ul>
+			</div>
+			<div>
+				<p></p>
+				<span></span>
+			</div>
+		</section>
+		<script type="text/javascript" src="mTween.js"></script>
+		<script type="text/javascript" src="tween.js"></script>
+		<script type="text/javascript">
+			var ps=document.getElementsByTagName('p');
+			var spans=document.getElementsByTagName('span');
+			var buttons=document.getElementById('buttons');
+			var lis1=buttons.getElementsByTagName('li');
+			var is=document.getElementsByTagName('i');
+			var str='在一起看每出戏在一起叹每口气,再细尝同偕到老的况味,每分钟也抱紧你没有一秒共你别离,'+
+					'还携手看着生与死,坐着卧着都分享日日夜夜也为彼此设想,站着望着都分享就在梦内发掘这真相 '+
+					' --- 《与我同在》';
+			var str1='';
+			var strs=str;
+			var strli='';
+			var length=str.length;
+			ps[0].innerHTML=str;
+			var timer=null;
+			var timerArrows=null;
+			var timerdot=null;
+			var timerShadow=null;
+			var onOff=true;
+			lis1[1].len=0;
+			lis1[0].len=str.length;
+			var shine=document.getElementById('shine');
+			for (var i=0;i<4;i++) {
+				strli+='<li style="left:'+i*35+'px;">★</li>';
+			}
+			shine.innerHTML+=strli;
+			var lis2=shine.getElementsByTagName('li');
+			//箭头背景光条移动方程调用，箭头背景光条自动移动
+			shadowMove(0,'background-position-x',300,'-300px');
+			shadowBeginMove(0,'background-position-x',300,'-300px');
+			//文字向右搬运按钮
+			lis1[0].onclick=function () {
+				if (alertPrompt (0)) {
+					return;
+				}
+				arrowsMove (0,'left');
+				for (var i=0;i<lis2.length;i++) {
+					dotDance (i,'top');
+				}
+				onOff=false;
+				leftLetterReduce();
+				clearInterval(timerShadow);
+				str=strs;
+			}
+			//文字向左搬运按钮
+			lis1[1].onclick=function () {
+				if (alertPrompt (1)) {
+					return;
+				}
+				arrowsMove (1,'right');
+				for (var i=0;i<lis2.length;i++) {
+					dotDance (i,'top');
+				}
+				onOff=false;
+				rightLetterReduce();
+				clearInterval(timerShadow);
+				str1=strs;
+			}
+			//左边文字向右边搬运函数
+			function leftLetterReduce() {
+				timer=setInterval(function () {
+					lis1[0].len--;
+					//右边文字一个一个增加
+					str1=str.substring(0,1);
+					ps[1].innerHTML+=str1;
+					//左边文字一个一个减少
+					str=str.substring(1);
+					ps[0].innerHTML=str;
+					noteLength (1,0);
+					judgeFinish (0,1,1,-300,'300px');
+				},100);
+			}
+			//右边文字向左边搬运函数
+			function rightLetterReduce() {
+				timer=setInterval(function () {
+					lis1[1].len--;
+					//左边一次增加一个字
+					str=str1.substring(0,1);
+					ps[0].innerHTML+=str;
+					//右边文字一次减少一个字
+					str1=str1.substring(1);
+					ps[1].innerHTML=str1;
+					noteLength (0,1);
+					judgeFinish (1,0,0,300,'-300px');
+				},100);
+			}
+			//箭头移动方程
+			function arrowsMove (obj,attr) {
+				timerArrows=setInterval(function () {
+					mTween(is[obj],attr,0,500,'linear',function () {
+						is[obj].style[attr]='-100px';
+					});
+				},520);
+			}
+			//星星移动方程
+			function dotDance (obj,attr) {
+				timerdot=setTimeout(function () {
+					lis2[obj].lc=setInterval(function () {
+						mTween(lis2[obj],attr,-20,250,'linear',function () {
+							mTween(lis2[obj],attr,20,500,'linear',function () {
+								mTween(lis2[obj],attr,0,250,'linear');
+							});
+						});
+					},1000);
+				},250*obj);
+			}
+			//箭头背景光条循环移动方程
+			function shadowMove(obj,attr,target,original) {
+				timerShadow=setInterval(function () {
+					shadowBeginMove (obj,attr,target,original);
+				},1510);
+			}
+			//箭头背景光条单次移动方程
+			function shadowBeginMove (obj,attr,target,original) {
+				mTween(is[obj],attr,target,1500,'linear',function () {
+					is[obj].style[attr]=original;
+				});
+			}
+			//点击移动按钮时的判断函数
+			function alertPrompt (obj) {
+				//判断右边或者左边是否已经没有东西，如果没有的话就弹窗提示
+				if (onOff&&lis1[obj].len==0) {
+					alert('框中没有东西了！');
+					return true;
+				}
+				//如果搬运文字没有完成，点击无效
+				if (!onOff) {
+					return true;
+				}
+			}
+			//判断是否搬运过程是否结束函数
+			function judgeFinish (obj,obj1,obj2,target,original) {
+				if (lis1[obj].len==0) {
+					clearInterval(timer);
+					onOff=true;
+					lis1[obj1].len=length;
+					spans[obj].innerHTML='';
+					clearInterval(timerArrows);
+					for (var i=0;i<lis2.length;i++) {
+						clearInterval(lis2[i].lc);
+					}
+					shadowBeginMove (obj2,'background-position-x',target,original);
+					shadowMove(obj2,'background-position-x',target,original);
+				}
+			}
+			function noteLength (obj,obj1) {
+				//代表长度的数字随着字数长度变化而变化
+				spans[obj1].innerHTML=lis1[obj1].len+'/'+length;
+				spans[obj].innerHTML=(length-lis1[obj1].len)+'/'+length;
+			}
+		</script>
+	</body>
+</html>
