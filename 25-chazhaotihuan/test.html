@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+				background: url(img/1.jpg) 50% 30%;
+			}
+			p{
+				margin: 0px;
+			}
+			em,strong{
+				font-style: normal;
+			}
+			section{
+				height: 450px;
+				width: 800px;
+				margin: 40px auto 0px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				position: relative;
+			}
+			section>p:nth-of-type(1){
+				height: 250px;
+				width: 500px;
+				margin: 0px auto;
+				font: bold 16px/26px "宋体";
+				color: #fff;
+				text-shadow: 0px 0px 30px #375daf;
+				background: rgba(26,34,70,0.2);
+				border-radius: 10px;
+			}
+			section>div{
+				height: 150px;
+				width: 500px;
+				margin: 0px auto;
+				
+			}
+			div div{
+				height: 100%;
+				width: 100%;
+				background: rgba(26,34,70,0.2);
+				border-radius: 10px;
+				transition: 1.2s;
+				transform-style: preserve-3d;
+				transform: rotateY(90deg);
+			}
+			section>p:nth-of-type(2){
+				position: absolute;
+				right: -50px;
+				top: 18px;
+				width: 140px;
+				color: #130d25;
+				cursor: pointer;
+				perspective: 400px;
+				perspective-origin: 50% 100%;
+				box-shadow: 0px 0px 80px #375daf;
+				
+			}
+			strong{
+				position: absolute;
+				left: 0px;
+				top: 100%;
+				transform-style: preserve-3d;
+				transform-origin: 0 0;
+				height: 50px;
+				width: 100%;
+				font: 26px/50px "宋体";
+				text-align: center;
+				background: #fff;
+				transition: 0.8s;
+				border-radius: 6px;
+				text-shadow: 0px 0px 10px #a7b3c2;
+				box-shadow: 0px 0px 10px #fff;
+			}
+			.nest4{
+				transform: rotateX(-179deg);
+				background: #284477;
+				color: #fff;
+				font: 20px/50px "宋体";
+			}
+			.nest3{
+				transform: rotateX(179deg);
+				background: #fff;
+				color: #130d25;
+				font: 20px/50px "宋体";
+			}
+			.nest2{
+				transform: rotateX(-110deg);
+				background: #284477;
+				color: #fff;
+				font: 20px/50px "宋体";
+			}
+			.nest1{
+				transform: rotateX(0deg);
+			}
+			div p{
+				width: 450px;
+				padding-top: 25px;
+				margin: 0px auto;
+				height: 50px;
+			}
+			p>span{
+				float: left;
+				height: 40px;
+				width: 90px;
+				color: #fff;
+				margin-left: 20px;
+				font: bold 20px/40px "宋体";
+				text-align: center;
+				cursor: pointer;
+				background: rgba(26,34,70,0.3);
+				border: 1px solid #fff;
+				border-radius: 6px;
+			}
+			p input,p em{
+				float: left;
+				height: 38px;
+				margin-top: -10px;
+				margin-left: 20px;
+				border: 1px solid #fff;
+				outline: none;
+				color: #fff;
+				font: bold 20px/40px "宋体";
+				background: rgba(26,34,70,0.3);
+				border-radius: 6px;
+			}
+			p input{
+				padding: 0px;
+				width: 150px;
+			}
+			p em{
+				width: 50px;
+				text-align: center;
+				cursor: pointer;
+			}
+			p>span:hover{
+				transform: scale(1.15);
+				box-shadow: 0px 0px 30px #375daf;
+			}
+			p em:hover{
+				transform: scale(1.15);
+				box-shadow: 0px 0px 30px #375daf;
+			}
+			.show{
+				display: block;
+			}
+			.nodisplay{
+				display: none;
+			}
+			i{
+				font-style: normal;
+			}
+			.color{
+				display: inline-block;
+				height: 26px;
+				background: rgba(255,255,255,1);
+				color: #130d25;
+				border-radius: 4px;
+				box-shadow: 0px 0px 30px #375daf;
+				text-shadow: 0px 0px 30px #fff;
+				transform: scale(1.15);
+			}
+			.opacitys{
+				opacity: 1;
+			}
+			img{
+				height: 260px;
+				width: 460px;
+				position: absolute;
+				right: -130px;
+				top: 310px;
+				z-index: -1;
+			}
+			.active{
+				background: #fff;
+				color: #375daf;
+				text-shadow: 0px 0px 30px #375daf;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<p>
+				让我有个美满旅程；让我记着有多高兴；让我有勇气去喊停；没有结局也可即兴；难堪的不想；只想痛快事情；时间尚早；别张开眼睛；长路漫漫是如何走过；宁愿让乐极忘形的我；离时代远远；没人间烟火；毫无代价唱最幸福的歌；愿我可；让我对这世界好奇；让我信自己的真理；让我有个永远假期；让我渴睡也可嬉戏；从今天开始；相识当作别离；时间就似活多一世纪；无论日夜是如何经过；宁愿在极乐当中的我；沉迷或放弃亦无可不可；毫无代价唱最幸福的；愿我可；唯求在某次尽情欢乐过；时间够了；时针偏偏出了错---《我的快乐年代》
+			</p>
+			<div>
+				<div>
+					<p>
+						<span>查找</span>
+						<span>替换</span>
+					</p>
+					<p class="show">
+						<input type="text" name="" id="searchText" value="" />
+						<em>查找</em>
+					</p>
+					<p class="nodisplay">
+						<input type="text" name="" id="originalText" value="" />
+						<input type="text" name="" id="resultText" value="" />
+						<em>替换</em>
+					</p>
+				</div>
+			</div>
+			<p id="unfold">
+				<strong class="nest1">
+					<span>展 开</span>
+					<strong class="nest2">
+						<span>显示查找框</span>
+						<strong class="nest3">
+							<span>显示替换框</span>
+							<strong class="nest4">
+								<span>隐藏修改框</span>
+							</strong>
+						</strong>
+					</strong>
+				</strong>
+			</p>
+			<img src="img/2.png"/>
+		</section>
+		<script type="text/javascript" src="mTween.js"></script>
+		<script type="text/javascript" src="tween.js"></script>
+		<script type="text/javascript">
+			function getTagname (tagName,context) {
+				return (context||document).getElementsByTagName(tagName);
+			}
+			function querySelector (querySelector,context) {
+				return (context||document).querySelectorAll(querySelector);
+			}
+			function $ (id) {
+				return document.getElementById(id);
+			}
+			var content=querySelector ('section>p')[0];
+			var menu=querySelector ('section>p')[1];
+			var unfold=$ ('unfold');
+			var strongs=querySelector ('p strong',unfold);
+			var menuSearch=querySelector ('p span',unfold)[1];
+			var menuReplace=querySelector ('p span',unfold)[2];
+			var hide=querySelector ('p span',unfold)[3];
+			var searchReplace=querySelector ('div>div')[0];
+			var searchShow=querySelector ('p>span')[0];
+			var replaceShow=querySelector ('p>span')[1];
+			var searchShowText=querySelector ('div>p')[1];
+			var replaceShowText=querySelector ('div>p')[2];
+			var searchButton=querySelector ('div>p:nth-of-type(2) em')[0];
+			var replaceButton=querySelector ('div>p:nth-of-type(3) em')[0];
+			var searchText=$ ('searchText');
+			var originalText=$ ('originalText');
+			var resultText=$ ('resultText');
+			var img=querySelector ('section img')[0];
+			var str=content.innerHTML;
+			var inputs='';
+			var num=0;
+			var n=0;
+			var i=0;
+			var timer=null;
+			imgBeginMove();
+			//图片自动移动
+			imgMove ();
+			//显示右边折叠栏
+			menu.onmouseover=function () {
+				for (var i=0;i<strongs.length;i++) {
+					strongs[i].style.transform='rotateX(0deg)';
+				}
+			}
+			//隐藏右边折叠栏
+			menu.onmouseout=function () {
+				for (var i=0;i<strongs.length;i++) {
+					strongs[i].style.transform='';
+				}
+			}
+			//显示查询框
+			menuSearch.onclick=function () {
+				searchReplace.style.transform='rotateY(0deg)';
+				searchShowFunction();
+			}
+			//显示修改框
+			menuReplace.onclick=function () {
+				searchReplace.style.transform='rotateY(0deg)';
+				replaceShowFunction ();
+			}
+			//显示修改框
+			replaceShow.onclick=function () {
+				replaceShowFunction ();
+			}
+			//显示查询框
+			searchShow.onclick=function () {
+				searchShowFunction();
+			}
+			//点击隐藏修改框按钮，修改框隐藏
+			hide.onclick=function () {
+				searchReplace.style.transform='rotateY(90deg)';
+				judgeIfClick();
+				searchShow.className='';
+				replaceShow.className='';
+			}
+			//点击查找按钮，使content中查到的内容高亮显示
+			searchButton.onclick=function () {
+				//判断是否输入内容
+				if (searchText.value=='') {
+					alert('请输入搜索内容！');
+					return;
+				}
+				content.innerHTML=str;
+				noFind (searchText);
+				judgeIfClick();
+				inputs=searchText.value;
+				content.innerHTML=content.innerHTML.split(inputs).join('<i class="color">'+inputs+'</i>');
+				//记录查找按钮的点击事件
+				searchButton.lc=true;
+				str=content.innerHTML;
+			}
+			//点击修改按钮，修改content中内容
+			replaceButton.onclick=function () {	
+				//记录修改按钮被点击过此事件
+				replaceButton.lc=true;
+				//判断是否输入内容
+				if (originalText.value=='') {
+					alert('请填写要替换内容！');
+					return;
+				}
+				//如果修改框中内容在content中没有，那就return，阻止下面程序执行
+				if (noFind (originalText)) {
+					return;
+				}
+				judgeIfClick();
+				if (resultText.value=='') {
+					if (confirm('确定要删除？')) {
+						content.innerHTML=content.innerHTML.split(originalText.value).join('<i class="color">'+resultText.value+'</i>');
+						str=content.innerHTML.split(originalText.value).join(resultText.value);
+						return;
+					}
+				}
+				//询问是否确定修改内容
+				if (confirm('确定更改？')) {
+					content.innerHTML=content.innerHTML.split(originalText.value).join('<i class="color">'+resultText.value+'</i>');
+					str=content.innerHTML.split(originalText.value).join(resultText.value);
+				}
+			}
+			//显示查询框函数
+			function searchShowFunction() {
+				replaceShowText.className='nodisplay';
+				searchShowText.className='show';
+				searchShow.className='active';
+				replaceShow.className='';
+			}
+			//显示修改框函数
+			function replaceShowFunction () {
+				replaceShowText.className='show';
+				searchShowText.className='nodisplay';
+				searchShow.className='';
+				replaceShow.className='active';
+			}
+			//判断搜索或者修改按钮是否点击过，如果点击过执行此函数时高亮字符串恢复到初始不高亮状态
+			function judgeIfClick() {
+				if (replaceButton.lc==true||searchButton.lc==true) {
+					var is=getTagname ('i');
+					for (i=0;i<is.length;i++) {
+						is[i].className='';
+					}
+				}
+			}
+			//图片自动移动函数
+			function imgMove () {
+				clearInterval(timer);
+				timer=setInterval(function () {
+					imgBeginMove();	
+				},6000);
+			}
+			//图片移动函数
+			function imgBeginMove() {
+				mTween(img,'top',230,3000,'linear',function () {
+					mTween(img,'top',310,3000,'linear');
+				});
+				mTween(img,'right',-210,3000,'linear',function () {
+					mTween(img,'right',-130,3000,'linear');
+				});
+			}
+			//判断函数，判断输入的内容是否能找到
+			function noFind (text) {
+				while (str.indexOf(text.value,i)==-1){
+					n++;
+					if (n==content.innerHTML.length) {
+						alert('输入的内容没找到！！')
+						n=0;
+						return true;
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
