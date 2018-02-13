@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+				background: url(img/bg01.jpg) 50% 16%;
+			}
+			section{
+				margin: 140px auto 0px;
+				height: 500px;
+				width: 1000px;
+			}
+			p{
+				margin: 0px;
+				height: 50px;
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 10px;
+			}
+			p span{
+				height: 40px;
+				width: 120px;
+				margin-right: 50px;   /*弹性盒模型子级支持上下margin*/
+				font: bold 20px/40px "宋体";
+				text-align: center;
+				color: #fff;
+				cursor: pointer;
+				box-shadow: 0px 0px 20px #375daf;
+				border-radius: 4px;
+				text-shadow: 0px 0px 10px #fff;
+				background: rgba(22,10,35,0.1);
+			}
+			p span:nth-of-type(2){
+				margin-right: 0px;
+			}
+			p span:hover{
+				background: #fff;
+				color: #375daf;
+				text-shadow: 0px 0px 10px rgba(22,10,35,0.2);
+			}
+			.active{
+				background: #fff;
+				color: #375daf;
+				text-shadow: 0px 0px 10px rgba(22,10,35,0.2);
+			}
+			ul{
+				margin: 0px;
+				padding: 0px;
+				width: 100%;
+				height: 400px;
+				margin: 20px auto 0px;
+				background: rgba(22,10,35,0.1);
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				flex-flow: row wrap;
+				border-radius: 10px;
+				box-shadow: 0px 0px 80px #375daf;
+			}
+			li{
+				list-style: none;
+				height: 160px;
+				width: 230px;
+				box-shadow: 0px 0px 10px #375daf;
+				border-radius: 10px;
+			}
+			img{
+				height: 120px;
+				width: 100%;
+				vertical-align: top;
+				border-radius: 10px;
+				cursor: pointer;
+			}
+			em{
+				display: block;
+				height: 40px;
+				width: 100%;
+				font: bold 20px/40px "宋体";
+				color: rgba(0,0,0,0.8);
+				text-align: center;
+			}
+			.imgColor{
+				-webkit-filter: grayscale(100%); 
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<p>
+				<span>
+					从大到小
+				</span>
+				<span>
+					打乱顺序
+				</span>
+			</p>
+			<ul>
+			</ul>
+		</section>
+		<script type="text/javascript">
+			function querySelector (selector,context) {
+				return (context||document).querySelectorAll(selector);
+			}
+			function getTagname (tagName,context) {
+				return (context||document).getElementsByTagName(tagName);
+			}
+			function $ (id) {
+				return document.getElementById(id);
+			}
+			var uls=getTagname('ul')[0];
+			var spans=getTagname('span');
+			var arr=[
+						[1,2,3,4,5,6,7,8],
+						['1-场景一','2-场景二','3-场景三','4-场景四','5-场景五','6-场景六','7-场景七','8-场景八']
+					];
+			var len=8;
+			var spansInnerHTML=['从大到小','从小到大'];
+			var str='';
+			for (var i=0;i<len;i++) {
+				str+='<li><img src="img/'+arr[0][i]+'.jpg" alt="" /><em>'+arr[1][i]+'</em></li>';
+			}
+			uls.innerHTML=str;
+			uls.innerHTML=str;
+			var imgs=querySelector('li img');
+			var ems=querySelector('li em');
+			var onOff=true;
+			var arr1=[]; 
+			var arr2=[]; 
+			var imgSrcLen=imgs[0].src.valueOf().length;
+			//调用函数，图片全都变成黑白灰色
+			imgColor ();
+			function imgColor () {
+				imgs=querySelector('li img');
+				//图片全都变成黑白灰色
+				for (var i=0;i<imgs.length;i++) {
+					imgs[i].className='imgColor';
+				}
+				for (var i=0;i<imgs.length;i++) {
+					//鼠标划过图片变大颜色变成彩色
+					imgs[i].onmouseover=function () {
+						this.className='';
+						this.style.transform='scale(1.15)';
+					}
+					//鼠标离开图片变为原来大小颜色为黑白灰
+					imgs[i].onmouseout=function () {
+						this.className='imgColor';
+						this.style.transform='scale(1)';
+					}
+				}
+			}
+			spans[0].onclick=function () {
+				str='';
+				spans[1].className='';
+				//当开关是true的时候点击spans[0]，图片从大到小排列
+				if (onOff) {
+					
+					this.className='active';
+					this.style.transform='perspective(450px) rotateY(-35deg)';
+					for (var i=0;i<arr[0].length;i++) {
+						arr1.push(imgs[i].src.valueOf()[imgSrcLen-5]);
+					}
+					arr1.sort(function (a,b) {
+						return b-a;
+					})
+					//数组arr1中数字从大到小排列，图片位置相应的从大到小排列
+					picOrder ();
+					spans[0].innerHTML=spansInnerHTML[1];
+					onOff=false;
+				//当开关是false的时候点击spans[0]，图片从小到大排列
+				}else{
+					this.className='active';
+					this.style.transform='perspective(450px) rotateY(35deg)';
+					for (var i=0;i<arr[0].length;i++) {
+						arr1.push(imgs[i].src.valueOf()[imgSrcLen-5]);
+					}
+					arr1.sort(function (a,b) {
+						return a-b;
+					})
+					//数组arr1中数字从小到大排列，图片位置相应的从小到大排列
+					picOrder ();
+					spans[0].innerHTML=spansInnerHTML[0];
+					onOff=true;
+				}
+				imgColor ();
+			}
+			//图片顺序被打乱
+			spans[1].onclick=function () {
+				str='';
+				this.className='active';
+				spans[0].className='';
+				imgColor ();
+				for (var i=0;i<arr[0].length;i++) {
+					arr1.push(imgs[i].src.valueOf()[imgSrcLen-5]);
+				}
+				arr1.sort(function(){
+					return Math.random()-0.5;
+				})
+				//数组arr1中数字无序排列，图片位置相应的无序排列
+				picOrder ();
+				imgColor ();
+			}
+			//图片位置被重新赋值
+			function picOrder () {
+				for (var i=0;i<len;i++) {
+					str+='<li><img src="img/'+arr1[i]+'.jpg" alt="" /><em>'+arr[1][Number(arr1[i])-1]+'</em></li>';
+				}
+				uls.innerHTML=str;
+				arr1=[];
+				arr2=[]; 
+			}
+		</script>
+	</body>
+</html>
