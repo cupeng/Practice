@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				padding: 100px 200px;
+				font: bold 30px/50px "微软雅黑";
+			}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+			toUpper('bei-jing-bei-jing');
+			function toUpper (attrstr) {
+				var str = '';
+				var arr = attrstr.split('-');
+				for (var i = 0; i < arr.length; i++) {
+					arr[i]=arr[i][0].toUpperCase()+arr[i].substring(1);
+				}
+				str = arr.join('-');
+				document.body.innerHTML+='原字符串：'+attrstr+'</br>';
+	   			document.body.innerHTML+='首字母大写后的字符串：'+str+'</br>';
+
+			}
+		</script>
+	</body>
+</html>

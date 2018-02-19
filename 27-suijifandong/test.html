@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+				background: url(img/bg-3.jpg);
+			}
+			section{
+				height: 600px;
+				width: 950px;
+				margin: 30px auto 0px;
+				position: relative;
+			}
+			ul{
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				margin: 0px;
+				padding: 0px;
+				height: 100%;
+				width: 52%;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				flex-flow: row wrap;
+				background: rgba(22,10,35,0.2);
+				border-radius: 20px;
+				box-shadow: 0px 0px 30px #375daf;
+			}
+			li{
+				height: 130px;
+				width: 210px;
+				overflow: hidden;
+				list-style: none;
+				position: relative;
+			}
+			ul li:nth-of-type(1),ul li:nth-of-type(2){
+				height: 233px;
+				width: 210px;
+			}
+			ul li:nth-of-type(1) img,ul li:nth-of-type(2) img{
+				height: 233px;
+				width: 210px;
+			}
+			div{
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				width: 100%;
+			}
+			div img{
+				height: 130px;
+				width: 210px;
+				vertical-align: top;
+			}
+			p{
+				margin: 0px;
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				height: 100%;
+				width: 400px;
+			}
+			em{
+				position: absolute;
+				top: 10px;
+				left: 0px;
+				height: 300px;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			input{
+				height: 36px;
+				width: 306px;
+				padding-left: 10px;
+				margin: 0px auto 40px;
+				outline: none;
+				border: none;
+				font: bold 20px/40px arial;
+				border: 2px solid #fff;
+				box-shadow: 0px 0px 30px #375daf;
+				border-radius: 10px;
+				color: #fff;
+				background: rgba(22,10,35,0.2);
+			}
+			strong{
+				font-style: normal;
+				height: 20px;
+				width: 320px;
+				margin: 0px auto 10px;
+				font: bold 16px/20px arial;
+				color: #fff;
+				text-shadow: 0px 0px 30px #a7b3c2;
+			}
+			span{
+				position: absolute;
+				top: 310px;
+				left: 0px;
+				height: 250px;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			span img{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				height: 158px;
+				width: 158px;
+				margin-left: -79px;
+				margin-top: -79px;
+				cursor: pointer;
+			}
+			.turn{
+				animation: move 1s linear infinite;
+			}
+			@keyframes move{
+				0%{
+					transform: rotate(0deg);
+				}
+				100%{
+					transform: rotate(360deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<ul>
+				<li>
+					<div>
+						<img src="img/1.jpg" alt="" />
+						<img src="img/2.jpg" alt="" />
+						<img src="img/3.jpg" alt="" />
+						<img src="img/4.jpg" alt="" />
+						<img src="img/5.jpg" alt="" />
+						<img src="img/6.jpg" alt="" />
+					</div>
+				</li>
+				<li>
+					<div>
+						<img src="img/7.jpg" alt="" />
+						<img src="img/8.jpg" alt="" />
+						<img src="img/9.jpg" alt="" />
+					</div>
+				</li>
+				<li>
+					<div>
+						<img src="img/10.jpg" alt="" />
+						<img src="img/11.jpg" alt="" />
+						<img src="img/12.jpg" alt="" />
+					</div>
+				</li>
+				<li>
+					<div>
+						<img src="img/19.jpg" alt="" />
+						<img src="img/20.jpg" alt="" />
+						<img src="img/21.jpg" alt="" />
+						<img src="img/22.jpg" alt="" />
+					</div>
+				</li>
+				<li>
+					<div>
+						<img src="img/13.jpg" alt="" />
+						<img src="img/14.jpg" alt="" />
+						<img src="img/15.jpg" alt="" />
+						<img src="img/16.jpg" alt="" />
+						<img src="img/17.jpg" alt="" />
+						<img src="img/18.jpg" alt="" />
+					</div>
+				</li>
+				<li>
+					<div>
+						<img src="img/23.jpg" alt="" />
+						<img src="img/24.jpg" alt="" />
+						<img src="img/25.jpg" alt="" />
+					</div>
+				</li>
+			</ul>
+			<p>
+				<em>
+					<strong>输入张数(即为翻动张数)：1 ~ 6</strong>
+					<input type="text" name="" id="" value="" />
+					<strong>输入图片翻动的时间：300 ~ 900</strong>
+					<input type="text" name="" id="" value="" />
+					<strong>输入后请点击下面按钮随机翻动图片</strong>
+				</em>
+				<span>
+					<img src="img/03.png"/>
+					<img src="img/04.png"/>
+				</span>
+			</p>
+			
+		</section>
+		<script type="text/javascript" src="mTween.js"></script>
+		<script type="text/javascript" src="tween.js"></script>
+		<script type="text/javascript">
+			function querySelector (selector,context) {
+				return (context||document).querySelectorAll(selector);
+			}
+			function getTagName (tagName,context) {
+				return (context||document).getElementsByTagName(tagName);
+			}
+			function $ (id) {
+				return document.getElementById(id);
+			}
+			var divs=querySelector('li div');
+			var inputs=querySelector('em input');
+			var butImgs=querySelector('span img')[1];
+			var timer=null;
+			var slideNumber=0;//控制每次翻动的张数
+			var slideTime=0;//控制每次翻动的快慢
+			var arr=[];
+			//确定每次翻动的张数
+			function imgNumberMove() {
+				for (var i=0;i<slideNumber;i++) {
+					arr.push(1);
+				}
+				for (var i=0;i<divs.length-slideNumber;i++) {
+					arr.push(0);
+				}
+			}
+			var imgs;
+			var length=0;
+			var onOff=true;
+			var autoPlayTimer=null;
+			var arrayTimer=null;
+			butImgs.className='turn';
+			//图片向上滑动
+			function imgMove (obj,multiple,length) {
+				setTimeout(function () {
+					mTween(divs[obj],'top',length*-multiple,slideTime,'linear');
+				},slideTime)
+			}
+			//每张图片从第一张开始翻动
+			for (var i=0;i<divs.length;i++ ) {
+				divs[i].num=0;
+			}
+			//图片自动翻动函数
+			function autoPlay (obj) {
+				var num=0;
+				divs[obj].imgs=getTagName('img',divs[obj]);
+				divs[obj].len=divs[obj].imgs.length;
+				//alert(divs[1].len)
+				autoPlayTimer=setInterval(function () {
+					//如果与div对应的数组中的数字是1，div滑动，图片显示翻动状态
+					if (arr[obj]==1) {
+						if (num<divs[obj].len) {
+							num++;
+							divs[obj].num=num;
+						}
+						if (num>divs[obj].len-1) {
+							num++;
+							divs[obj].num=2*divs[obj].len-1-num;//1,0
+							if (num==2*divs[obj].len-1) {
+								num=0;
+							}
+						}
+						console.log(divs[0].num)
+						if (obj==0||obj==1) {
+							imgMove (obj,divs[obj].num,233);
+						}else{
+							imgMove (obj,divs[obj].num,130);
+						}
+					}
+				},2*slideTime);
+			}
+			//arr数组无序排列
+			function arrayChange () {
+				arrayTimer=setInterval(function () {
+					arr.sort(function(){
+						return Math.random()-0.5;
+					})
+				},2*slideTime);
+			}
+			//点击按钮，图片翻动
+			butImgs.onclick=function () {
+				var value0=inputs[0].value;
+				var value1=inputs[1].value;
+				if (inputs[0].value==''||inputs[1].value=='') {
+					alert('请将两个内容框填写完整');
+					return;
+				}
+				if (value0<1||value0>6) {
+					alert('请将翻动张数设置为1~6之间的整数');
+					return;
+				}
+				if (value1<300||value1>900) {
+					alert('请将图片每次翻动需要的时间设置在300 ~ 900之间');
+					return;
+				}
+				if (!onOff) {
+					return;
+				}
+				this.className='';
+				slideNumber=inputs[0].value;
+				imgNumberMove();
+				slideTime=inputs[1].value;
+				if (onOff) {
+					arrayChange ();
+					for (var i=0;i<divs.length;i++ ) {
+						autoPlay (i);
+					}
+					onOff=false;
+				}
+			}
+		</script>
+	</body>
+</html>
