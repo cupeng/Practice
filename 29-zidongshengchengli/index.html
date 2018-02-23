@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" value="按钮"/>
+		<ul>
+			
+		</ul>
+		<script>
+			var arr = [
+						'湖南乡政府完不成税收任务 用官员名义贷8000万填缺',
+						'河南女市委书记被查 距其接替落马前任不足1年',
+						'飞机备降乘客与乘务起争执 一乘客延误救治身亡'
+					]
+			var inp = document.getElementsByTagName('input')[0];
+			var oul = document.getElementsByTagName('ul')[0];
+			inp.onclick = function(){
+				/*oul.innerHTML = '<li>'+arr[0]+'</li>';
+				oul.innerHTML += '<li>'+arr[1]+'</li>';
+				oul.innerHTML += '<li>'+arr[2]+'</li>';*/
+				for(var i=0;i<arr.length;i++){
+					oul.innerHTML += '<li>'+arr[i]+'</li>';
+				}
+			}
+			
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 500px;
+				margin: 50px auto;
+			}
+			input{
+				display: inline-block;
+				height: 50px;
+				width: 50px;
+				cursor: pointer;
+			}
+			p{
+				width: 500px;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<input type="button" value="-" id="btn1"/>
+			<input type="button" value="+" id="btn2"/>
+			<p id="ps">'湖南乡政府完不成税收任务 用官员名义贷8000万填缺',
+							'河南女市委书记被查 距其接替落马前任不足1年',
+							'飞机备降乘客与乘务起争执 一乘客延误救治身亡'
+			</p>
+		</div>
+		<script>
+			var btn1 = document.getElementById('btn1');
+			var btn2 = document.getElementById('btn2');
+			var ps = document.getElementById('ps');
+			var num = 15;
+			//点击“+”按钮字体变大
+			btn2.onclick = function(){
+				num++;
+				if(num<42){
+					ps.style.fontSize = num + 'px';
+				}
+				else{
+					num=42;
+				}
+			}
+			//点击“-”按钮字体变小
+			btn1.onclick = function(){
+				num--;
+				if(num>15){
+					ps.style.fontSize = num + 'px';
+				}
+				else{
+					num=15;
+				}
+			}
+		</script>
+	</body>
+</html>
