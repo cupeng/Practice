@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			ul{
+				padding: 0px;
+				/*height: 500px;*/
+				width: 500px;
+				margin: 60px auto;
+			}
+			li{
+				list-style: none;
+				height: 30px;
+				width: 90%;
+				padding-left: 10%;
+				font: bold 20px/30px "宋体";
+				cursor: pointer;
+			}
+			ul li:last-child,ul li:first-child{
+				background: blue;
+			}
+			ul li:last-child:hover{
+				background: yellow;
+			}
+			ul li:first-child:hover{
+				background: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<ul>
+				<li>这是首行</li>
+				<li>第01行</li>
+				<li>第02行</li>
+				<li>第03行</li>
+				<li>第04行</li>
+				<li>第05行</li>
+				<li>第06行</li>
+				<li>第07行</li>
+				<li>第08行</li>
+				<li>第09行</li>
+				<li>第10行</li>
+				<li>第11行</li>
+				<li>第12行</li>
+				<li>这是末行</li>
+			</ul>
+		</section>
+		<script type="text/javascript">
+			var uls=document.querySelectorAll('ul');
+			var lis=document.querySelectorAll('ul li');
+			function liActive (obj) {
+				obj.onmouseover=function () {
+					//鼠标划过的li的背景颜色和文字颜色变化
+					this.style.background='#000';
+					this.style.color='#fff';
+					//鼠标划过的li的上一个li如果不是第一个li，那么鼠标划过的li的上一个li的背景颜色变化
+					if (this.previousElementSibling!==uls[0].firstElementChild) {
+						this.previousElementSibling.style.background='#ccc';
+					}
+					//鼠标划过的li的上一个li如果不是最后一个li，那么鼠标划过的li的上一个li的背景颜色变化
+					if (this.nextElementSibling!==uls[0].lastElementChild) {
+						this.nextElementSibling.style.background='#ccc';
+					}
+				}
+				//鼠标移开时，变化li的颜色消失
+				obj.onmouseout=function () {
+					this.style.background='';
+					this.style.color='';
+					this.previousElementSibling.style.background='';
+					this.nextElementSibling.style.background='';
+				}
+			}
+			//调用颜色变化函数，从第二个到倒数第二个li
+			for (var i=1;i<lis.length-1;i++) {
+				liActive (lis[i]);
+			}
+		</script>
+	</body>
+</html>

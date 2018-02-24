@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			section{
+				width: 500px;
+				margin: 30px auto;
+				background: pink;
+			}
+			ul{
+				margin: 0px;
+				padding: 0px;
+				padding-left: 20px;
+			}
+			li{
+				list-style: none;
+				font: 14px/30px "宋体";
+			}
+			h2{
+				margin: 0px;
+				cursor: pointer;
+			}
+			li>ul{
+				display: none;
+			}
+			.active{
+				display: block;
+			}
+			.noDisplay{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<ul id="menu">
+				<li>
+					<h2>
+						<span>+</span>
+						第一级菜单
+					</h2>
+					<ul>
+						<li>
+							<h2>
+								<span>+</span>
+								第二级菜单
+							</h2>
+							<ul>
+								<li>
+									<h2>
+										<span>+</span>
+										第三级菜单
+									</h2>
+									<ul>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+											<ul>
+											<li>
+												<h2>
+													<span>+</span>
+													第五级菜单
+												</h2>
+											</li>
+											<li>
+												<h2>
+													<span>+</span>
+													第五级菜单
+												</h2>
+											</li>
+										</ul>
+										</li>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h2>
+										<span>+</span>
+										第三级菜单
+									</h2>
+									<ul>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<h2>
+								<span>+</span>
+								第二级菜单
+							</h2>
+							<ul>
+								<li>
+									<h2>
+										<span>+</span>
+										第三级菜单
+									</h2>
+									<ul>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h2>
+										<span>+</span>
+										第三级菜单
+									</h2>
+									<ul>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<h2>
+						<span>+</span>
+						第一级菜单
+					</h2>
+					<ul>
+						<li>
+							<h2>
+								<span>+</span>
+								第二级菜单
+							</h2>
+							<ul>
+								<li>
+									<h2>
+										<span>+</span>
+										第三级菜单
+									</h2>
+									<ul>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h2>
+										<span>+</span>
+										第三级菜单
+									</h2>
+									<ul>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<h2>
+								<span>+</span>
+								第二级菜单
+							</h2>
+							<ul>
+								<li>
+									<h2>
+										<span>+</span>
+										第三级菜单
+									</h2>
+									<ul>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h2>
+										<span>+</span>
+										第三级菜单
+									</h2>
+									<ul>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+										<li>
+											<h2>
+												<span>+</span>
+												第四级菜单
+											</h2>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+		<script type="text/javascript">
+			var menu=document.getElementById('menu');
+			var h2s=menu.querySelectorAll('h2');
+			var record=null;
+			//设置所有h2的开关都为开的
+			for (var i=0;i<h2s.length;i++) {
+				h2s[i].onOff=true;
+			}
+			for (var i=0;i<h2s.length;i++) {
+				h2s[i].onclick=function () {
+					//记录指针指向
+					record=this;
+					//当点击的h2的开关为开的话，它下一级的菜单打开
+					if (this.onOff) {
+						var h2sAll=record.parentNode.parentNode.querySelectorAll('h2');
+						//与点击的h2同级菜单都关闭
+						for (var i=0;i<h2sAll.length;i++) {
+							if (h2sAll[i].nextElementSibling!==null) {
+								h2sAll[i].firstElementChild.innerHTML='+';
+								h2sAll[i].nextElementSibling.style.display='none';
+								h2sAll[i].onOff=true;
+							}
+						}
+						//当点击的h2的开关为开的话，它下一级的菜单打开
+						judgeIfAction ('-','block',false);
+					}
+					else{
+						//当点击的h2的开关为关的话，它下一级的菜单关闭
+						judgeIfAction ('+','none',true);
+					}
+				}
+			}
+			//判断点击的h2的开关为开或关，它下一级的菜单相应的打开关闭
+			function judgeIfAction (ifFold,ifDisplay,trueFalse) {
+				if (record.nextElementSibling!==null) {
+					record.firstElementChild.innerHTML=ifFold;
+					record.nextElementSibling.style.display=ifDisplay;
+				}
+				record.onOff=trueFalse;
+			}
+		</script>
+	</body>
+</html>
