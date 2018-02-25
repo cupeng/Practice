@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			section{
+				margin: 50px auto;
+				height: 320px;
+				width: 620px;
+			}
+			div{
+				height: 300px;
+				width: 600px;
+				border: 10px solid #ccc;
+				position: relative;
+				background: pink;
+			}
+			p{
+				/*margin: 0px;*/
+				font: 16px/24px "宋体";
+				/*font: 20px/24px "宋体";*/
+				text-indent: 2em;
+			}
+			a{
+				cursor: pointer;
+			}
+			a:hover{
+				color: red;
+			}
+			em{
+				padding: 10px;
+				position: absolute;
+				z-index: -1;
+				width: 300px;
+				cursor: pointer;
+			}
+			.promptShow{
+				border: 1px solid #000;
+				font: 14px/20px "宋体";
+				text-indent: 2em;
+				background: #fff;
+				left: 0px;
+				top: 0px;
+				z-index: 10;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<div>
+				<p>
+					1975年7月31日，3号
+					<a href="javascript:;" prompt="台风（typhoon），和飓风都是产生于热带洋面上的一种强烈的气旋，只是发生地点不同，叫法不同，在北太平洋西部、国际日期变更线以西，包括南中国海范围内发生的强热带气旋（其中风速要超过３２．６米／秒）称为台风；而在大西洋或北太平洋东部的热带气旋则称飓风，也就是说在美国一带称飓风，在菲律宾、中国、日本一带叫台风。 详情" specificAddress="www.miaov.com">
+						台风
+					</a>
+					在太平洋上空形成。8月7日，台风进入驻马店地区。
+				</p>
+				<p>
+					在台风尚未到达时，
+					<a href="javascript:;" prompt="区号： 0396 邮编：463000 位置：位于河南省南部 面积：1.5万平方公里 人口：795万 行政区划：辖驻马店市和汝南、确山、上蔡、西平、遂平、平舆、正阳、泌阳九县 概况 " specificAddress="www.miaov.com">
+						驻马店
+					</a>
+					地区就已经普降暴雨。8月4日至8日，暴雨中心最大过程雨量达1631毫米，8月5日至7日3天的最大降雨量为1605毫米，相当于驻马店地区年平均雨量的1.8倍。4日至8日，超过400毫米的降雨面积达19410平方公里，大于1000毫米的降水区集中在
+					<a href="javascript:;" prompt="京广铁路是指从北京到广东广州的铁路，全长2324千米。原分为北南两段。北段从北京到湖北汉口，称为">
+						京广铁路
+					</a>
+					以西板桥水库、石漫滩水库到方城一带。暴雨的降水强度，在暴雨中心——位于板桥水库的林庄，最大6小时
+					<a href="javascript:;" prompt="从气象学上的角度来讲，所谓雨量，就是在一定时段内，降落到水平面上（无渗漏、蒸发、流失等）的雨水深度。用雨量计测定。以毫米为单位。气象台站在有降水的情况下，每隔6小时测量一次。" specificAddress="www.miaov.com">
+						雨量
+					</a>
+					为830毫米，超过了当时世界最高记录——美国宾州密士港的782毫米；最大24小时雨量为1060毫米，也创造了
+					<a href="javascript:;" prompt="中国（China），位于东亚，是一个以华夏文明为主体、中华文化为基础，以汉族为主要民族的统一多民族国家，通用汉语。中国疆域内的各个民族统称为中华民族，龙是中华民族的象征。 " specificAddress="www.miaov.com">
+						中国
+					</a>
+					同类指标的最高记录。
+				</p>
+				<em></em>
+			</div>
+		</section>
+		<script type="text/javascript">
+			var divs=document.getElementsByTagName('div')[0];
+			var as=document.getElementsByTagName('a');
+			var ems=document.getElementsByTagName('em')[0];
+			var timer=null;
+			function promptShow (obj) {
+				obj.onmouseover=function () {
+					//获取提示框距离定位父级的位置
+					var asToLeft=obj.offsetLeft;
+					var asToTop=obj.offsetTop+obj.offsetHeight;
+					//提示框显示
+					ems.className='promptShow';
+					ems.innerHTML=this.getAttribute('prompt')+'<a href="'+this.specificAddress+'">提示</a>';
+					ems.style.top=asToTop+'px';
+					ems.style.left=asToLeft+'px';
+					//获取提示框距离定位父级的left值、top值加上自身的宽高值
+					var emsToLeft=ems.offsetLeft+ems.offsetWidth;
+					var emsToTop=ems.offsetTop+ems.offsetHeight;
+					//如果提示框下边超出所在父级范围，top值重新定义
+					if (emsToTop>divs.clientHeight) {
+						ems.style.top=obj.offsetTop-ems.offsetHeight+'px';;
+					}
+					//如果提示框右边超出所在父级范围，left值重新定义
+					if (emsToLeft>divs.clientWidth) {
+						ems.style.left=divs.clientWidth-ems.clientWidth+'px';
+					}
+				}
+				//鼠标移除要提示字时，提示框延时消失
+				obj.onmouseout=function () {
+					timer=setTimeout(function () {
+						ems.className='';
+						ems.innerHTML='';
+					},50);
+				}
+				//鼠标移入提示框时，清除定时器，提示框不消失
+				ems.onmouseover=function () {
+					clearTimeout(timer);
+				}
+				//鼠标移出提示框时，提示框延时消失
+				ems.onmouseout=function () {
+					timer=setTimeout(function () {
+						ems.className='';
+						ems.innerHTML='';
+					},50);
+				}
+			}
+			//调用提示框显示函数
+			for (var i=0;i<as.length;i++) {
+				promptShow (as[i]);
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/tween.js"></script>
+		<script type="text/javascript" src="js/mTween.js"></script>
+		<style>
+			li{
+				position: relative;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+		var ul = document.createElement('ul');
+		for(var i=0;i<5;i++){
+			(function(){
+				var li = document.createElement('li');
+				var upper = document.createElement('button');
+				var down = document.createElement('button');
+				li.innerHTML = (''+i).repeat(3);
+				li.appendChild(upper);
+				li.appendChild(down);
+				ul.appendChild(li);
+				upper.innerHTML = '上移';
+				down.innerHTML = '下移';
+				upper.onclick = function(){
+					var prev = li.previousElementSibling;
+					if(prev){
+						mTween(li,'top',-li.offsetHeight,400,'linear');
+						mTween(prev,'top',li.offsetHeight,400,'linear',function(){
+							li.style.top = '0px';
+							prev.style.top = '0px';
+							ul.insertBefore(li,prev);
+						})
+						
+					}else{
+						alert('已经是第一个了');
+					}
+				}
+				down.onclick = function(){
+					var next = li.nextElementSibling;
+					if(next){
+						mTween(li,'top',li.offsetHeight,400,'linear');
+						mTween(next,'top',-li.offsetHeight,400,'linear',function(){
+							li.style.top = '0px';
+							next.style.top = '0px';
+							ul.insertBefore(next,li);
+						})
+					}else{
+						alert('已经是最后一个了');
+					}
+				}
+			})();
+			
+		}
+		document.body.appendChild(ul);
+		</script>
+	</body>
+</html>
