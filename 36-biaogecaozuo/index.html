@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	    <style>
+	        td {
+	            text-align: center;
+	        }
+	        input{
+	        	border: none;
+	        	border: 1px solid #9C949C;
+	        }
+	        a{
+	        	text-decoration: none;
+	        }
+	        span{
+	        	background: #F7F794;
+	        }
+	    </style>
+    <script>
+
+        //在页面加载完成的时候，把下面这个数据动态添加到表格中
+        var data = [
+            {
+                 'id' : 1,
+                'username' : '张三',
+                'age' : 24,
+                'sex' : '男'
+            },
+            {
+                'id' : 2,
+                'username' : '李四',
+                'age' : 26,
+                'sex' : '男'
+            },
+            {
+                'id' : 3,
+                'username' : '王二',
+                'age' : 27,
+                'sex' : '男'
+            },
+            {
+                'id' : 4,
+                'username' : '麻子',
+                'age' : 26,
+                'sex' : '男'
+            }
+        ];
+
+        /*
+            1、根据数据生成表格。
+            2、数据的添加
+            3、全选
+            4、上移下移删除
+            5、排序
+            6、反选
+            7、批量删除（被选中的删除）
+        */
+       /*
+		       表格操作：
+			1、表格内容写死
+			实现以下功能
+				1.全选多选。（选中行高亮）
+				2.隔行变色
+				3.根据id和年龄进行排序
+				4.上移下移删除操作。
+			扩展功能
+				1.反选
+				2.批量删除
+				3.实现数据添加
+			进阶功能
+				1.排序根据编号或者年龄进行排序，可以选择升序和降序。
+				2.模糊搜索（搜索到的内容高亮显示）	 
+       */
+    </script>
+</head>
+
+<body>
+	<form action="" id="form">
+		<p>
+			姓名：<input type="text" name="username"/>
+		</p>
+		<p>
+			年龄：<input type="text" name="age1"/>
+		</p>
+		<p>
+			性别：<select name="sex">
+				<option value="男">男</option>
+				<option value="女">女</option>
+			</select>
+		</p>
+		<p>
+			排序：<select name="rank">
+				<option value="id">ID</option>
+				<option value="age">年龄</option>
+			</select>
+			<select name="sort">
+				<option value="up">升序</option>
+				<option value="down">降序</option>
+			</select>
+			<input type="button" id="submit1" value="提交" />
+		</p>
+		
+		<p>
+			搜索：<input type="text" name="text1" /> <input type="button" value="提交" id="submit2"/>
+		</p>
+		<p>
+			<input type="button" value="添加" name="add"/>
+		</p>
+		<input type="button" value="反选" name="invert"/>
+		<input type="button" value="批量删除" name="delete1"/>
+	</form>
+		
+		<table id="tab" width="100%" border="1">
+			<thead>
+				<tr>
+					<td><input type="checkbox" id="checkAll">全选</td>
+					<td>ID</td>
+					<td>姓名</td>
+					<td>年龄</td>
+					<td>性别</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="checkbox" ></td>
+					<td>1</td>
+					<td>张三</td>
+					<td>24</td>
+					<td>男</td>
+					<td>
+						<a href="javascript:;">上移</a>
+						<a href="javascript:;">下移</a>
+						<a href="javascript:;">删除</a>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" ></td>
+					<td>2</td>
+					<td>李四</td>
+					<td>26</td>
+					<td>男</td>
+					<td>
+						<a href="javascript:;">上移</a>
+						<a href="javascript:;">下移</a>
+						<a href="javascript:;">删除</a>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" ></td>
+					<td>3</td>
+					<td>王二</td>
+					<td>27</td>
+					<td>男</td>
+					<td>
+						<a href="javascript:;">上移</a>
+						<a href="javascript:;">下移</a>
+						<a href="javascript:;">删除</a>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" ></td>
+					<td>4</td>
+					<td>麻子</td>
+					<td>26</td>
+					<td>男</td>
+					<td>
+						<a href="javascript:;">上移</a>
+						<a href="javascript:;">下移</a>
+						<a href="javascript:;">删除</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	<script>
+		var checkAll = document.getElementById('checkAll');
+		var tab = document.getElementById('tab');
+		var tbodies = tab.tBodies;
+		var inps = tbodies[0].getElementsByTagName('input');
+		var trs = tbodies[0].rows;
+		var arr = ['#DED6E7','#fff'];
+		var form = document.getElementById('form');
+		var rank = form.rank;
+		var sort = form.sort;
+		var submit1 = document.getElementById('submit1');
+		var invert = form.invert;
+		var delete1 = form.delete1;
+		var username = form.username;
+		var age1 = form.age1;
+		var sex = form.sex;
+		var add = form.add;
+		var arr1 = Array.from(tbodies[0].rows);
+		var text1 = form.text1;
+		var submit2 = document.getElementById('submit2');
+		
+		//隔行变色
+		function color(){
+			for(var i=0;i<trs.length;i++){
+				trs[i].style.background = arr[i%arr.length];
+			}
+		}
+		color();
+		//全选多选
+		function chose(){
+			for(var i=0;i<inps.length;i++){
+			inps[i].index = i;
+			inps[i].onchange = function(){
+				if(this.checked){
+					this.parentNode.parentNode.style.background = 'yellow';
+				}else{
+					this.parentNode.parentNode.style.background = arr[this.index%arr.length];
+				}
+				checkAll.checked = fn();
+			}
+			}
+		}
+		chose();
+		checkAll.onchange = function(){
+			for(var i=0;i<inps.length;i++){
+				inps[i].checked = this.checked;
+				
+				if(this.checked){
+					inps[i].parentNode.parentNode.style.background = 'yellow';
+				}else{
+					inps[i].parentNode.parentNode.style.background = arr[i%arr.length];
+				}
+			}
+		
+		}
+		function fn(){
+			if( inps.length == 0 ) return false;
+			for(var i=0;i<inps.length;i++){
+				if(!inps[i].checked){
+					return false;
+				}
+			}
+			return true;
+		}
+		
+ 		//上移下移删除操作
+ 		function rem(){
+ 			for(var i=0;i<trs.length;i++){
+   			var aups = trs[i].getElementsByTagName('a')[0];
+   			var ads = trs[i].getElementsByTagName('a')[1];
+   			var del = trs[i].getElementsByTagName('a')[2];
+   			aups.onclick = function(){
+   				var p1 = this.parentNode.parentNode;
+   				var p2 = this.parentNode.parentNode.previousElementSibling;
+   				if(p2){
+   					tbodies[0].insertBefore(p1,p2);
+   				}else{
+   					alert('已经是第一个了');
+   				}
+   				color();
+   				heightline();
+   			};
+   			ads.onclick = function(){
+   				var p1 = this.parentNode.parentNode;
+   				var p2 = this.parentNode.parentNode.nextElementSibling;
+   				if(p1.nextElementSibling){
+   					tbodies[0].insertBefore(p2,p1);
+   				}else{
+   					alert('已经是最后一个了');
+   				}
+   				color();
+   				heightline();
+   			}
+   			del.onclick = function(){
+   				
+   				tbodies[0].removeChild(this.parentNode.parentNode);
+   				heightline();
+				checkAll.checked = fn();	
+   			}
+   		}
+ 		}
+   		rem();
+   		function heightline(){
+   			for(var i=0;i<trs.length;i++){
+				if(trs[i].children[0].children[0].checked){
+					trs[i].style.background = 'yellow';
+				}else{
+					trs[i].style.background = arr[i%arr.length];
+				}	
+			}
+   				
+   		}
+ 		//反选
+ 		invert.onclick = function(){
+ 			for(var i=0;i<trs.length;i++){
+// 				inps[i].checked = !inps[i].checked;
+ 				if(inps[i].checked){
+ 					inps[i].checked = false;
+ 					inps[i].parentNode.parentNode.style.background = arr[i%arr.length];
+ 				}else{
+ 					inps[i].checked = true;
+ 					inps[i].parentNode.parentNode.style.background = 'yellow';
+ 				}
+ 			}
+ 			checkAll.checked = fn();
+ 		};
+ 		//批量删除
+		delete1.onclick = function(){
+			for(var i=0;i<trs.length;i++){
+				if(inps[i].checked){
+					tbodies[0].removeChild(inps[i].parentNode.parentNode);
+					i--;
+				}
+			}
+			for(var i=0;i<trs.length;i++){
+				trs[i].style.background = arr[i%arr.length];
+			
+			}
+			checkAll.checked = fn();
+		}
+		//添加
+		add.onclick = function(){
+			if(username.value == ''||age1.value == ''){
+				alert('请输入内容');
+				return;
+			}
+			if(isNaN(age1.value)){
+				alert('年龄请输入数字');
+				return;
+			}
+			var tr = document.createElement('tr');
+			tr.innerHTML += '<td><input type="checkbox" ></td><td>'+(++arr1.length)+'</td><td>'+username.value+'</td><td>'+age1.value+'</td><td>'+sex.value+'</td><td><a href="javascript:;">上移</a> <a href="javascript:;">下移</a> <a href="javascript:;">删除</a></td>'
+			tbodies[0].appendChild(tr);
+			color();
+			chose();
+			rem();
+			checkAll.checked = fn();
+			heightline();
+		}
+		//根据id和年龄进行排序
+		
+		submit1.onclick = function(){
+		var arr1 = Array.from(tbodies[0].rows);
+ 			if(rank.value == 'id'){
+ 				arr1.sort(function(a,b){
+					var text1 = a.cells[1];
+					var text2 = b.cells[1];
+					if(sort.value == 'down'){
+						return text2.innerHTML.slice()-text1.innerHTML.slice();
+					}else{
+						return text1.innerHTML.slice()-text2.innerHTML.slice();
+					}
+				})
+				tbodies[0].innerHTML='';
+				for(var i=0;i<arr1.length;i++){
+					tbodies[0].innerHTML +=  arr1[i].innerHTML;
+					color();
+				}
+ 			}else{
+ 				arr1.sort(function(a,b){
+					var text1 = a.cells[3];
+					var text2 = b.cells[3];
+					if(sort.value == 'down'){
+						return text2.innerHTML.slice()-text1.innerHTML.slice();
+					}else{
+						return text1.innerHTML.slice()-text2.innerHTML.slice();
+					}
+				})
+				tbodies[0].innerHTML='';
+				for(var i=0;i<arr1.length;i++){
+					tbodies[0].innerHTML +=  arr1[i].innerHTML;
+					color();
+				}
+ 			}
+ 			rem();
+ 			color();
+ 			chose();
+		};
+		//模糊查找
+		submit2.onclick = function(){
+			for(var i=0;i<trs.length;i++){
+				for(var j=1;j<5;j++){
+					var text11 = trs[i].cells[j];
+					//每次有span就清，没有span就不清
+					text11.innerHTML = text11.innerHTML.split('<span>').join('');
+					text11.innerHTML = text11.innerHTML.split('</span>').join('');
+					text11.innerHTML = text11.innerHTML.split(text1.value).join('<span>'+text1.value+'</span>');
+					
+					
+				}
+				
+			}
+			
+		}
+	</script>
+	</body>
+</html>

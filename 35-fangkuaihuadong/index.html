@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			section{
+				height: 450px;
+				width: 800px;
+				margin: 40px auto;
+				position: relative;
+			}
+			div{
+				height: 60px;
+				width: 60px;
+				background: red;
+				position: absolute;
+				top: 0px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+		</section>
+		<script type="text/javascript" src="mTween.js"></script>
+		<script type="text/javascript" src="tween.js"></script>
+		<script type="text/javascript">
+			var section=document.getElementsByTagName('section')[0];
+			var str='';
+			var len=11;
+			var onOff=true;
+			var num=0;
+			var prev;
+			var topValue=0;
+			//创建要动作11个div
+			for (var i=0;i<len;i++) {
+				str+='<div style="left:'+i*70+'px;"></div>';
+			}
+			section.innerHTML+=str;
+			var divs=document.getElementsByTagName('div');
+			for (var i=0;i<divs.length;i++) {
+				divs[i].leo=i;
+				//点击div,两边的div随着点击的div顺序往下掉
+				divs[i].onclick=function () {
+					//若所有div没有都掉下，点击无效
+					if (!onOff) {
+						return;
+					}
+					onOff=false;
+					this.style.background='blue';
+					//判断div的位置，如果在上面，往下掉，如果在下面，往下面移动
+					topValue=topValue==350?0:350;
+					for (var i=0;i<divs.length;i++) {
+						if (i<=this.leo) {
+							divMove (i,topValue,this.leo-i);
+						} else{
+							divMove (i,topValue,i-this.leo);
+						}
+					}
+					prev=this;
+				}
+			}
+			function divMove (obj,topValue,delay) {
+				timer=setTimeout(function () {
+					mTween(divs[obj],'top',topValue,500,'linear',function () {
+						//div到达终点的时候，num加1，所有的div都到达终点时，可以继续点击
+						num++;
+						if (num==len) {
+							num=0;
+							prev.style.background='';
+							onOff=true;
+						}
+					})
+				},100*delay);
+			}
+		</script>
+	</body>
+</html>
