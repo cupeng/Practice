@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			section{
+				margin: 30px auto;
+				height: 500px;
+				width: 500px;
+				padding: 20px;
+			}
+			.header{
+				height: 60px;
+			}
+			#create,#delete{
+				float: left;
+				height: 30px;
+				width: 100px;
+				text-align: center;
+				font: bold 16px/30px "宋体";
+				background: blue;
+				color: #fff;
+				border: 1px solid cornflowerblue;
+				cursor: pointer;
+				margin-right: 10px;
+			}
+			ul{
+				padding: 0px;
+				margin: 0px;
+			}
+			li{
+				float: left;
+				list-style: none;
+				width: 90px;
+				height: 90px;
+				margin-right: 10px;
+				margin-bottom: 10px;
+			}
+			li:hover{
+				background: lightblue;
+			}
+			li:hover input{
+				opacity: 1;
+				background: #fff;
+			}
+			.liActive{
+				background: lightblue;
+			}
+			.inputActive{
+				opacity: 1;
+				background: #fff;
+			}
+			input{
+				margin: 0px;
+				height: 15px;
+				width: 15px;
+				opacity: 0;
+				
+			}
+			input,img,span{
+				display: block;
+			}
+			img{
+				margin-left: 15px;
+				height: 56px;
+				width: 66px;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<div class="header">
+				<div id="create">
+					新建文件夹
+				</div>
+				<div id="delete">
+					删除文件夹
+				</div>
+			</div>
+			<ul>
+				<!--<li>
+					<input type="checkbox" name="" id="" value="" />
+					<img src="img/1.jpg" alt="" />
+					<span>新建文件夹</span>
+				</li>-->
+			</ul>
+		</section>
+		<script type="text/javascript">
+			var lisCreate=document.getElementById('create');
+			var lisDelete=document.getElementById('delete');
+			var uls=document.getElementsByTagName('ul')[0];
+			var num=0;
+			lisCreate.onclick=function () {
+				var li=document.createElement('li');
+				var inputs=document.createElement('input');
+				inputs.type='checkbox';
+				var img=document.createElement('img');
+				img.src='img/1.png';
+				var span=document.createElement('span');
+				span.innerHTML='新建文件夹';
+				uls.appendChild(li);
+				li.appendChild(inputs);
+				li.appendChild(img);
+				li.appendChild(span);
+				inputs.onchange=function () {
+					if (this.checked) {
+						this.className='inputActive';
+						this.parentNode.className='liActive';
+					}
+					if(!this.checked){
+						this.className='';
+						this.parentNode.className='';
+					}
+				}
+			}
+			lisDelete.onclick=function () {
+				if (uls.children.length==0) {
+					alert('还没有文件夹')
+					return;
+				}
+				var liRemove=document.getElementsByTagName('li');
+				console.log(liRemove)
+				var liOriginalLength=liRemove.length;
+				for (var i=0;i<liRemove.length;i++) {
+					if (liRemove[i].className=='') {
+						num++;
+						if (num==liOriginalLength) {
+							alert('还没有选中')
+							
+							return;
+						}
+					}
+					else if (liRemove[i].className=='liActive') {
+						//if (confirm('确定删除？')) {
+							uls.removeChild(liRemove[i]);
+							i--;
+							liRemove.length--;
+						//}
+					}
+				}
+				num=0;
+				//console.log(uls)
+//				liOriginalLength=liRemove.length;
+				/*
+				方法二：
+				var inputRemove=document.getElementsByTagName('input');
+				for (var i=0;i<inputRemove.length;i++) {
+					if (inputRemove[i].checked) {
+						uls.removeChild(inputRemove[i].parentNode);
+						i--;
+						inputRemove.length--;
+					}
+				}
+				*/
+			}
+		</script>
+	</body>
+</html>
