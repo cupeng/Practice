@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body,
+			ul,
+			dd,
+			p {
+				margin: 0;
+				padding: 0;
+			}
+			
+			li {
+				list-style: none;
+			}
+			
+			body,
+			div,
+			p,
+			li {
+				font-family: "Lucida Grande", Verdana, Lucida, Arial, Helvetica, Microsoft Yahei, simsun, sans-serif;
+				font-size: 12px;
+				color: #333;
+			}
+			
+			img,
+			a {
+				border: 0;
+			}
+			
+			a:link,
+			a:visited,
+			a:active {
+				color: #333;
+				text-decoration: none;
+			}
+			
+			a:hover {
+				color: #e70;
+				text-decoration: none;
+			}
+			
+			.title {
+				font-size: 30px;
+			}
+			/*list.html*/
+			
+			#wrap {
+				width: 920px;
+				margin: 20px auto 0;
+				/*background: url(img/c_bg.gif) repeat-y 190px 0;*/
+			}
+			
+			.left {
+				float: left;
+				width: 160px;
+			}
+			
+			.left h2 {
+				font-size: 16px;
+				margin-bottom: 30px;
+			}
+			
+			.left li {
+				margin-bottom: 5px;
+				font-family: "微软雅黑";
+			}
+			
+			.left li a {
+				color: #333;
+				font-size: 14px;
+				display: block;
+				text-decoration: none;
+				height: 25px;
+				display: block;
+				line-height: 25px;
+				text-align: center;
+			}
+			
+			.left li.focus a,
+			.left li a:hover {
+				color: #fff;
+				background: #328fbe;
+			}
+			
+			.right {
+				float: right;
+				width: 700px;
+			}
+			
+			.right .title {
+				padding: 50px 0 20px;
+			}
+			
+			.right .info {
+				font-family: "微软雅黑";
+			}
+			
+			.right .zp span {
+				font-size: 13px;
+				font-weight: bold;
+				margin-right: 30px;
+			}
+			
+			.right .zp .date {
+				position: relative;
+				left: 30px;
+				font-weight: normal;
+			}
+			
+			.right .yq {
+				color: #666;
+				line-height: 24px;
+				margin-bottom: 37px;
+				padding-top: 6px;
+			}
+			
+			.right .yq a {
+				color: #328fbe;
+			}
+			
+			.clear {
+				clear: both;
+				font-size: 0px;
+				width: 0px;
+				height: 1px;
+				visibility: hidden;
+				line-height: 0;
+			}
+			
+			.pages {
+				width: 700px;
+				height: 26px;
+				border: 1px solid #d6d6d6;
+				background: #e2e2e2;
+				margin: 30px 0 40px;
+				position: relative;
+				line-height: 26px;
+				font-size: 20px;
+			}
+			.pages a.active{
+				background: #666;
+				color: #fff;
+			}
+			
+			.pages .prev {
+				position: absolute;
+				left: 13px;
+				top: 7px;
+			}
+			
+			.pages .next {
+				position: absolute;
+				right: 13px;
+				top: 7px;
+			}
+			
+			.pages p {
+				padding-left: 62px;
+			}
+			
+			.pages p span {
+				float: left;
+				margin-top: 3px;
+				margin-left: 2px;
+			}
+			
+			.pages p span a {
+				display: block;
+				width: 20px;
+				height: 20px;
+				text-align: center;
+				line-height: 20px;
+			}
+			
+			.pages p span.focus a,
+			.pages p a:hover {
+				background: #666;
+				color: #fff;
+			}
+			/*list.html*/
+			/*content.html*/
+			
+			.content h2 {
+				font-size: 16px;
+				font-weight: bold;
+				color: #328fbe;
+				font-family: "微软雅黑";
+				padding-bottom: 8px;
+			}
+			
+			.content span {
+				float: left;
+				line-height: 24px;
+				color: #666;
+			}
+			
+			.content span.l {
+				width: 443px;
+			}
+			
+			.content dl,
+			.content p {
+				margin-top: 26px;
+			}
+			
+			.content dl dt {
+				line-height: 28px;
+			}
+			
+			.content dl dd {
+				line-height: 24px;
+			}
+			
+			.content {
+				padding-bottom: 20px;
+			}
+		</style>
+		<script src="js/data.js"></script>
+		<script>
+			window.onload=function(){
+				var search=window.location.search || '?s=sh&p=1';	//?s=sh&p=1
+				var from=search.substring(1).split('&')[0].split('=')[1];
+				var pn=search.substring(1).split('&')[1].split('=')[1];
+				
+				//生成左边导航
+				var ul=document.querySelector(".left ul");
+				for(var i=0;i<data.list.length;i++){
+					/*var li=document.createElement("li");
+					var a=document.createElement("a");
+					
+					a.innerHTML=data.list[i].text;
+					a.href='?s='+data.list[i].lx+'&p=1';
+					
+					li.appendChild(a);
+					
+					if(from==data.list[i].lx){
+						li.className='focus';
+					}
+					
+					ul.appendChild(li);*/
+					
+					/*
+					 * 社会招聘
+					 * 	?s=sh&p=1
+					 * 校园招聘
+					 * 	?s=xy&p=1
+					 */
+					var cl=from==data.list[i].lx?'focus':'';
+					
+					ul.innerHTML+='<li class="'+cl+'"><a href="?s='+data.list[i].lx+'&p=1">'+data.list[i].text+'</a></li>';
+				}
+				
+				//生成右边标题
+				var title=document.querySelector(".title");
+				title.innerHTML=data[from].imgText;
+				
+				
+				//生成右侧主体内容
+				createHtml(pn);
+				function createHtml(p){
+					var info=document.querySelector(".info");
+					
+					var startNum=(p-1)*2;
+					var endNum=startNum+2;
+					
+					if(endNum>data[from].text.length){
+						endNum=data[from].text.length
+					}
+					
+					for(var i=startNum;i<endNum;i++){
+						info.innerHTML+='<p class="zp">'+
+							'<span><a href="content.html?s='+from+'#ln='+i+'">★ 职位需求：'+data[from].text[i].zw+'</a></span>'+
+							'<span>需求人数：'+data[from].text[i].rs+'名</span>'+
+							'<span class="date">'+data.date(data[from].text[i].sj)+'</span></p>'+
+						'<p class="yq">'+data[from].text[i].info[0].l.join('')+'[<a href="content.html?s='+from+'#ln='+i+'">查看详情</a>]</p>';
+					}
+				}
+				
+				
+				//创建分页
+				function createPage(){
+					var pages=document.querySelector(".pages");
+					var total=Math.ceil(data[from].text.length/2);
+					
+					var prev=pn-1;
+					if(prev<=1){
+						prev=1;
+					}
+					
+					pages.innerHTML='<a href="?s='+from+'&p='+prev+'">《</a>';
+					for(var i=0;i<total;i++){
+						var cl=pn==i+1?'active':'';
+						pages.innerHTML+='<a class="'+cl+'" href="?s='+from+'&p='+(i+1)+'">'+(i+1)+'</a>';
+					}
+					
+					var next=parseInt(pn)+1;
+					if(next>=total){
+						next=total;
+					}
+					pages.innerHTML+='<a href="?s='+from+'&p='+next+'">》</a>';
+				}
+				createPage();
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div class="left">
+				<h2>招贤纳士</h2>
+				<ul>
+					<!--<li class="focus"><a href="javascript:;">社会招聘</a></li>
+			      	<li><a href="javascript:;">校园招聘</a></li>-->
+				</ul>
+			</div>
+			<div class="right">
+				<div class="title">
+					<!--校园招聘-->
+				</div>
+				<div class="info">
+					<!--<p class="zp">
+						<span><a href="">★ 职位需求：测试工程师【社会招聘】</a></span>
+						<span>需求人数：2名</span>
+						<span class="date">2013年7月30日</span>
+					</p>
+					<p class="yq">1.计算机或相关专业本科以上学历；2.从事软件测试工作3年及以上；3.具备良好的沟通能力和快速学习能力；4.精通测试策略和方法、测试用例设计；5.熟悉DB2、AIX等平台的基本操作；6.具备2年以上金...[<a href="">查看详情</a>]
+					</p>-->
+
+				</div>
+				<div class="pages">
+					
+				</div>
+
+			</div>
+			<div class="clear"></div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>招贤纳士-详细页面</title>
+		<style>
+			body,
+			ul,
+			dd,
+			p {
+				margin: 0;
+				padding: 0;
+			}
+			
+			li {
+				list-style: none;
+			}
+			
+			body,
+			div,
+			p,
+			li {
+				font-family: "Lucida Grande", Verdana, Lucida, Arial, Helvetica, Microsoft Yahei, simsun, sans-serif;
+				font-size: 12px;
+				color: #333;
+			}
+			
+			img,
+			a {
+				border: 0;
+			}
+			
+			a:link,
+			a:visited,
+			a:active {
+				color: #333;
+				text-decoration: none;
+			}
+			
+			a:hover {
+				color: #e70;
+				text-decoration: none;
+			}
+			
+			.title {
+				font-size: 30px;
+			}
+			/*list.html*/
+			
+			#wrap {
+				width: 920px;
+				margin: 20px auto 0;
+				/*background: url(img/c_bg.gif) repeat-y 190px 0;*/
+			}
+			
+			.left {
+				float: left;
+				width: 160px;
+			}
+			
+			.left h2 {
+				font-size: 16px;
+				margin-bottom: 30px;
+			}
+			
+			.left li {
+				margin-bottom: 5px;
+				font-family: "微软雅黑";
+			}
+			
+			.left li a {
+				color: #333;
+				font-size: 14px;
+				display: block;
+				text-decoration: none;
+				height: 25px;
+				display: block;
+				line-height: 25px;
+				text-align: center;
+			}
+			
+			.left li.focus a,
+			.left li a:hover {
+				color: #fff;
+				background: #328fbe;
+			}
+			
+			.right {
+				float: right;
+				width: 700px;
+			}
+			
+			.right .title {
+				padding: 50px 0 20px;
+			}
+			
+			.right .info {
+				font-family: "微软雅黑";
+			}
+			
+			.right .zp span {
+				font-size: 13px;
+				font-weight: bold;
+				margin-right: 30px;
+			}
+			
+			.right .zp .date {
+				position: relative;
+				left: 30px;
+				font-weight: normal;
+			}
+			
+			.right .yq {
+				color: #666;
+				line-height: 24px;
+				margin-bottom: 37px;
+				padding-top: 6px;
+			}
+			
+			.right .yq a {
+				color: #328fbe;
+			}
+			
+			.clear {
+				clear: both;
+				font-size: 0px;
+				width: 0px;
+				height: 1px;
+				visibility: hidden;
+				line-height: 0;
+			}
+			
+			.pages {
+				width: 700px;
+				height: 26px;
+				border: 1px solid #d6d6d6;
+				background: #e2e2e2;
+				margin: 30px 0 40px;
+				position: relative;
+				line-height: 26px;
+				font-size: 20px;
+			}
+			.pages a.active{
+				background: #666;
+				color: #fff;
+			}
+			
+			.pages .prev {
+				position: absolute;
+				left: 13px;
+				top: 7px;
+			}
+			
+			.pages .next {
+				position: absolute;
+				right: 13px;
+				top: 7px;
+			}
+			
+			.pages p {
+				padding-left: 62px;
+			}
+			
+			.pages p span {
+				float: left;
+				margin-top: 3px;
+				margin-left: 2px;
+			}
+			
+			.pages p span a {
+				display: block;
+				width: 20px;
+				height: 20px;
+				text-align: center;
+				line-height: 20px;
+			}
+			
+			.pages p span.focus a,
+			.pages p a:hover {
+				background: #666;
+				color: #fff;
+			}
+			/*list.html*/
+			/*content.html*/
+			
+			.content h2 {
+				font-size: 16px;
+				font-weight: bold;
+				color: #328fbe;
+				font-family: "微软雅黑";
+				padding-bottom: 8px;
+			}
+			
+			.content span {
+				float: left;
+				line-height: 24px;
+				color: #666;
+			}
+			
+			.content span.l {
+				width: 443px;
+			}
+			
+			.content dl,
+			.content p {
+				margin-top: 26px;
+			}
+			
+			.content dl dt {
+				line-height: 28px;
+			}
+			
+			.content dl dd {
+				line-height: 24px;
+			}
+			
+			.content {
+				padding-bottom: 20px;
+			}
+			/*content.html*/
+		</style>
+		<script src="js/data.js"></script>
+		<script>
+			window.onload=function(){
+				var from=window.location.search.split('=')[1];
+				var hash=window.location.hash.split('=')[1];
+				
+				//生成左边导航
+				var ul=document.querySelector(".left ul");
+				for(var i=0;i<data.list.length;i++){
+					var cl=from==data.list[i].lx?'focus':'';
+					
+					ul.innerHTML+='<li class="'+cl+'"><a href="list.html?s='+data.list[i].lx+'&p=1">'+data.list[i].text+'</a></li>';
+				}
+				
+				//生成右边标题
+				var title=document.querySelector(".title");
+				title.innerHTML=data[from].imgText;
+				
+				//生成主体内容
+				var info=document.querySelector(".info");
+				
+				info.innerHTML='<h2>'+data[from].text[hash].zw+'</h2>'+
+			        '<div>'+
+			          '<span class="l">招聘公司：'+data[from].text[hash].gs+'查看公司地理位置>></span>'+
+			          '<span>公司性质：'+data[from].text[hash].xz+'</span>'+
+			          '<span class="l">职位性质：'+data[from].text[hash].gz+'</span>'+
+			          '<span>工作地点：'+data[from].text[hash].dd+'</span>'+
+			          '<span class="l">工作经验：'+data[from].text[hash].jy+'</span>'+
+			          '<span>学历要求：'+data[from].text[hash].xl+'</span>'+
+			          '<span class="l">招聘人数：'+data[from].text[hash].rs+'人</span>'+
+			          '<span>薪资待遇：'+data[from].text[hash].dy+'</span>'+
+			          '<span class="l">发布日期：'+data.date(data[from].text[hash].sj,1)+'</span>'+
+			          '<span>招聘类型：'+data[from].text[hash].lx+'</span>'+
+			        '</div>'+
+			        '<div class="clear"></div>'+
+			        '<dl class="ggzz">'+
+			          '<dt>工作职责：</dt>'+
+			        '</dl>'+
+			        '<dl class="gwyq">'+
+			          '<dt>岗位要求：</dt>'+
+			        '</dl>'+
+			        '<p>有意者请投递简历至 liuyajuan@fulan.com.cn</p>';
+			        
+			    var ggzz=document.querySelector(".ggzz");
+			    for(var i=0;i<data[from].text[hash].info[1].l.length;i++){
+			    	ggzz.innerHTML+='<dd>'+data[from].text[hash].info[1].l[i]+'</dd>';
+			    }
+			    
+			    var gwyq=document.querySelector(".gwyq");
+			    for(var i=0;i<data[from].text[hash].info[0].l.length;i++){
+			    	gwyq.innerHTML+='<dd>'+data[from].text[hash].info[0].l[i]+'</dd>';
+			    }
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div class="left">
+				<h2>招贤纳士</h2>
+				<ul>
+				</ul>
+			</div>
+			<div class="right">
+				<div class="title">
+					
+				</div>
+				<div class="info content">
+					<!-- <h2>测试工程师【社会招聘】</h2>
+			        <div>
+			          <span class="l">招聘公司：北京智信创通信息技术有限公司查看公司地理位置>></span>
+			          <span>公司性质：股份制公司</span>
+			          <span class="l">职位性质：全职</span>
+			          <span>工作地点：上海</span>
+			          <span class="l">工作经验：3年以上</span>
+			          <span>学历要求：本科及以上</span>
+			          <span class="l">招聘人数：2人</span>
+			          <span>薪资待遇：面议</span>
+			          <span class="l">发布日期：2013-7-30</span>
+			          <span>招聘类型：社会招聘</span>
+			        </div>
+			        <div class="clear"></div>
+			        <dl>
+			          <dt>工作职责：</dt>
+			          <dd>从事计算机软件的测试工作。</dd>
+			        </dl>
+			        <dl>
+			          <dt>岗位要求：</dt>
+			          <dd>1.计算机或相关专业本科以上学历；</dd>
+			          <dd>2.从事软件测试工作3年及以上；</dd>
+			          <dd>3.具备良好的沟通能力和快速学习能力；</dd>
+			          <dd>4.精通测试策略和方法、测试用例设计；</dd>
+			          <dd>5.熟悉DB2、AIX等平台的基本操作；</dd>
+			          <dd>6.具备2年以上金融IT行业经验，特别是有金融行业相关业务的测试或者开发工作经验者优先。</dd>
+			        </dl>
+			        <p>有意者请投递简历至 liuyajuan@fulan.com.cn</p> -->
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</body>
+</html>
