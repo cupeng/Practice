@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			section{
+				margin: 60px auto;
+				height: 500px;
+				width: 400px;
+				/*background: pink;*/
+			}
+			input{
+				height: 30px;
+				width: 398px;
+				border: 1px solid #ccc;
+				font: 20px/30px "宋体";
+			}
+			div{
+				margin: 20px auto;
+				position: relative;
+			}
+			div input{
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				background: transparent;
+			}
+			div span{
+				font: 20px/30px "宋体";
+				color: #ddd;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<input type="text" name="" placeholder="请输入内容" />
+			<div>
+				<input type="text" name="" id="Text" />
+				<span id="prompt">请输入内容</span>
+			</div>
+		</section>
+		<script type="text/javascript">
+			var Text=document.getElementById("Text");
+			var prompt=document.getElementById("prompt");
+			Text.onkeydown=function () {
+				setTimeout(function () {
+					if (Text.value=='') {
+						prompt.style.visibility='visible';
+					}else{
+						prompt.style.visibility='hidden';
+					}
+				})
+			}
+		</script>
+	</body>
+</html>

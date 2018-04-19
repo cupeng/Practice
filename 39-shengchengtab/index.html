@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+			}
+			section{
+				height: 500px;
+				width: 600px;
+				margin: 20px auto;
+				/*background: pink;*/
+				text-align: center;
+			}
+			section>a{
+				font: bold 20px/50px "宋体";
+				margin-right: 5px;
+			}
+			section>a:hover{
+				color: red;
+			}
+			section>div{
+				width: 580px;
+				height: 400px;
+				border: 10px solid #ccc;
+			}
+			header{
+				height: 30px;
+				text-align: left;
+			}
+			div div{
+				height: 300px;
+			}
+			header a{
+				font: 16px/30px "宋体";
+				margin-right: 10px;
+				display: inline-block;
+			}
+			a span{
+				margin-right: 4px;
+			}
+			a i{
+				font: 20px/30px "宋体";
+				color: red;
+			}
+			p{
+				height: 300px;
+				margin: 0px;
+				text-align: center;
+				font: 30px/300px "宋体";
+				display: none;
+			}
+			#section .active{
+				display: block;
+			}
+			#section .show{
+				background: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="section">
+			<a href="javascript:;">document1</a>
+			<a href="javascript:;">document2</a>
+			<a href="javascript:;">document3</a>
+			<a href="javascript:;">document4</a>
+			<a href="javascript:;">document5</a>
+			<div>
+				<header>
+					<!--<a href="javascript:;"><span>document1</span><i>x</i></a>
+					<a href="javascript:;"><span>document2</span><i>x</i></a>
+					<a href="javascript:;"><span>document3</span><i>x</i></a>
+					<a href="javascript:;"><span>document4</span><i>x</i></a>
+					<a href="javascript:;"><span>document5</span><i>x</i></a>-->
+				</header>
+				<div>
+					<!--<p>document1</p>
+					<p>document2</p>
+					<p>document3</p>
+					<p>document4</p>
+					<p>document5</p>-->
+				</div>
+			</div>
+		</section>
+		<script type="text/javascript">
+			var section=document.getElementsByTagName('section')[0];
+			var header=document.getElementsByTagName('header')[0];
+			var divContent=document.querySelectorAll('div div')[0];
+			var as=document.querySelectorAll('section>a');
+			for (var i=0;i<as.length;i++) {
+				as[i].onOff=true;
+			}
+			function creat (obj) {
+				
+				as[obj].onclick=function () {
+					if (!this.onOff) {
+						return;
+					}
+					this.onOff=false;
+					clearClassname ()
+					var a=document.createElement('a');
+					a.href='javascript:;';
+					var span=document.createElement('span');
+					span.innerHTML='document'+obj;
+					var i=document.createElement('i');
+					i.innerHTML='x';
+					a.appendChild(span);
+					a.appendChild(i);
+					a.className='show';
+					var p=document.createElement('p');
+					p.innerHTML='document'+obj;
+					p.className='active';
+					span.onclick=function () {
+						clearClassname();
+						a.className='show';
+						p.className='active';
+					}
+					header.appendChild(a);
+					divContent.appendChild(p);
+					i.onclick=function () {
+//						var asContent=document.querySelectorAll('header a');
+//						var ps=document.getElementsByTagName('p');
+						as[obj].onOff=true;
+						header.removeChild(this.parentNode);
+						divContent.removeChild(p);
+						if (this.parentNode.className!=='') {
+							var asContent=document.querySelectorAll('header a');
+							var ps=document.getElementsByTagName('p');
+							asContent[0].className='show';
+							ps[0].className='active';
+						}
+					}
+				};
+			}
+			for (var i=0;i<as.length;i++) {
+				creat(i);
+			}
+			function clearClassname () {
+				var asContent=document.querySelectorAll('header a');
+				var ps=document.getElementsByTagName('p');
+				for (var i=0;i<asContent.length;i++) {
+					asContent[i].className='';
+					ps[i].className='';
+				}
+			}
+		</script>
+	</body>
+</html>
