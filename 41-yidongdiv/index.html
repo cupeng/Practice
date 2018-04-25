@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	div{
+		width: 100px;
+		height: 100px;
+		background: red;
+		position: absolute;
+		cursor: pointer;
+		top: 50px;
+	}
+	#box2{
+		left: 150px;
+		background: yellow;
+	}
+	#box3{
+		left: 300px;
+		background: blue;
+	}
+	</style>
+</head>
+<body>
+	<div id="box1"></div>
+	<div id="box2"></div>
+	<div id="box3"></div>
+	<input type="button" value="返回初始位置" id="goBack"/>
+	<script type="text/javascript">
+	//构造函数
+	var Tab=function (ele) {
+		this.box = document.getElementById(ele);
+		//调用鼠标点下属性函数，移动div
+		this.mouseDown();
+	}
+	//鼠标点下
+	Tab.prototype.mouseDown=function () {
+		var self=this;
+		this.arr=[
+			{
+				x:this.box.getBoundingClientRect().left,
+				y:this.box.getBoundingClientRect().top
+			}
+		];
+		this.box.onmousedown=function () {
+			self.moveOff=false;
+			self.disx = event.clientX - self.box.offsetLeft;
+			self.disy = event.clientY - self.box.offsetTop;
+			self.mouseMove();
+			self.mouseUp();
+			return false;
+		}
+	}
+	//鼠标移动
+	Tab.prototype.mouseMove=function () {
+		var self=this;
+		document.onmousemove = function () {
+			self.x = event.clientX - self.disx;
+			self.y = event.clientY - self.disy;
+			//范围属性函数被调用的话就限定div移动范围
+			if (self.onOff) {
+				if (self.x<self.minX) self.x=self.minX;
+				if (self.y<self.minY) self.y=self.minY;
+				if (self.x>self.maxX) self.x=self.maxX;
+				if (self.y>self.maxY) self.y=self.maxY;
+				if (self.y<50) self.y=50;
+			}
+			self.box.style.left = self.x+'px';
+			self.box.style.top = self.y+'px';
+			self.track();
+			
+		};
+	}
+	//鼠标按键抬起
+	Tab.prototype.mouseUp=function () {
+		document.onmouseup = function () {
+			document.onmouseup = document.onmousemove = null;
+		};
+	}
+	Tab.prototype.Range=function (options) {
+		//如果用户没写范围options,就定义opt为一个空的object
+		var opt=options||{};
+		//判断是否被调用
+		this.onOff=true;
+		this.minX=opt.minX||0;
+		this.minY=opt.minY||0;
+		this.maxX=opt.maxX||window.innerWidth-this.box.clientWidth;
+		this.maxY=opt.maxY||window.innerHeight-this.box.clientHeight;
+	}
+	//记录div运动的轨迹
+	Tab.prototype.track=function () {
+		var obj={
+			x:this.x,
+			y:this.y
+		};
+		this.arr.push(obj);
+	}
+	//div返回
+	Tab.prototype.goBack=function () {
+		var self=this;
+		//判断div是否被移动，如果移动了返回原来位置
+		if (!this.moveOff) {
+			//记录div初始位置
+			var initial=this.arr[0];
+			this.timer=setInterval(function () {
+				var popObj=self.arr.pop();
+				if (popObj) {
+					self.box.style.left=popObj.x+'px';
+					self.box.style.top=popObj.y+'px';
+				}else{
+					self.arr=[initial];
+					clearInterval(self.timer);
+					self.moveOff=true;
+					return;
+					
+				}
+			},30);
+		}
+		
+	}
+	var box1=new Tab('box1');
+	var box2=new Tab('box2');
+	var box3=new Tab('box3');
+//	box1.Range({
+//		minX:100,
+//		minY:100,
+//		maxX:900,
+//		maxY:300
+//	});
+	box1.Range();
+	box2.Range();
+	box3.Range();
+	var goBack=document.getElementById("goBack");
+	var divs=document.querySelectorAll('div');
+	goBack.onclick=function () {
+		box1.goBack();
+		box2.goBack();
+		box3.goBack();
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width: 10px;
+				height: 10px;
+				background: red;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<script>
+			var divs = document.getElementsByTagName('div');
+			document.onmousemove = function(){
+				for(var i=divs.length-1;i>0;i-- ){
+					divs[i].style.left = divs[i-1].offsetLeft+ 'px';
+					divs[i].style.top = divs[i-1].offsetTop+'px';
+				
+				}
+				divs[0].style.left = event.clientX+'px';
+				divs[0].style.top = event.clientY +'px';
+			}
+			
+		</script>
+	</body>
+</html>
