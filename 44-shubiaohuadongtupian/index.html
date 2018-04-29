@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title> New Document </title>
+  <meta charset="utf-8" />
+	<style>
+		#box {width: 500px; height: 400px; border: 2px solid #666; margin: 20px auto;overflow: hidden;}
+		#box ul {width: 500px; height: 400px; padding: 0; margin: 0; position: relative;}
+		#box ul li {width: 500px; height: 400px; overflow: hidden; position: absolute; left: 0; top: 0; z-index: 1; opacity: 1;}
+		#box ul li img {width: 100%; height: 100%;}
+		#box li.current { z-index: 10;}
+		#box li.next { z-index: 5;}
+	</style>
+ </head>
+
+<body>
+	<div id="box">
+		<ul>
+			<li class="current"><img src="pic/1.jpg" /></li>
+			<li class="next"><img src="pic/2.jpg" /></li>
+			<li><img src="pic/3.jpg" /></li>
+			<li><img src="pic/4.jpg" /></li>
+			<li><img src="pic/5.jpg" /></li>
+			<li><img src="pic/6.jpg" /></li>
+			<li><img src="pic/7.jpg" /></li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="mTween.js"></script>
+	<script type="text/javascript" src="tween.js"></script>
+	<script type="text/javascript">
+		var ul=document.querySelector('ul');
+ 		var lis=document.getElementsByTagName('li');
+ 		var onOff=true;
+ 		document.onkeydown=function () {
+ 			if (event.keyCode==37) {
+ 				liMove ('left',-500);
+ 			}else if (event.keyCode==38) {
+ 				liMove ('top',-500);
+ 			}
+ 			else if (event.keyCode==39) {
+ 				liMove ('left',500);
+ 			}else if (event.keyCode==40) {
+ 				liMove ('top',500);
+ 			}
+ 		}
+ 		function insertAfter(newElement,targetElement){
+			var parent=targetElement.parentNode;
+			if(parent.lastChild==targetElement){
+				parent.appendChild(newElement);
+			}else{
+				parent.insertBefore(newElement,targetElement.nextSibling);
+			}
+		}
+ 		function liMove (attr,target) {
+			if (!onOff) {
+				return;
+			}
+			onOff=false;
+			mTween(lis[0],attr,target,500,'linear',function () {
+				lis[0].style[attr]='0px';
+				lis[0].className='';
+				insertAfter(lis[0],lis[6]);
+				lis[0].className='current';
+				lis[1].className='next';
+				onOff=true;
+			})
+		}
+ 		ul.onmousedown=function () {
+ 			var mouseX=event.clientX;
+ 			var mouseY=event.clientY;
+ 			//console.log(typeof mouseX)
+ 			var mouseToX,
+ 				mouseToY;
+   			document.onmousemove=function () {
+   				mouseToX=event.clientX;
+   				mouseToY=event.clientY;
+   				return false;
+   			}
+   			document.onmouseup=function () {
+   				if (mouseX>mouseToX&&mouseX-mouseToX>Math.abs(mouseY-mouseToY)) {
+   					console.log(1,mouseX-mouseToX,mouseY-mouseToY)
+	 				liMove ('left',-500);
+	 			}else if (mouseY>mouseToY&&Math.abs(mouseX-mouseToX)<mouseY-mouseToY) {
+	 				console.log(2,mouseX-mouseToX,mouseY-mouseToY)
+	 				liMove ('top',-500);
+	 			}
+	 			else if (mouseToX>mouseX&&mouseToX-mouseX>Math.abs(mouseToY-mouseY)) {
+	 				console.log(3,mouseToX-mouseX,mouseToY-mouseY)
+	 				liMove ('left',500);
+	 			}else if (mouseToY>mouseY&&Math.abs(mouseToX-mouseX)<mouseToY-mouseY) {
+	 				console.log(4,mouseToX-mouseX,mouseToY-mouseY)
+	 				liMove ('top',500);
+	 			}
+   				document.onmousemove=null;
+   			}
+ 		}
+	</script>
+</body>
+</html>
+

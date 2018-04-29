@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		div{
+			width: 100px;
+			height: 100px;
+			background: pink;
+			position: absolute;
+			top: 100px;
+			left: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+	<script type="text/javascript" src="mTween.js"></script>
+	<script type="text/javascript" src="tween.js"></script>
+	<script type="text/javascript">
+		var	div=document.querySelector('div');
+		var Left=true;
+		var Up=true;
+		var Right=true;
+		var Down=true;
+		var numLeft=100;
+		var numTop=100;
+		var distance=10;
+		document.onkeydown = function(ev){
+			if (ev.keyCode==37&&Left==true) {
+				timerLeft=setInterval(function () {
+					numLeft=numLeft-distance;
+					mTween(div,'left',numLeft,50,'linear')
+					Left=false;
+				},50);
+			} else if (ev.keyCode==38&&Up==true) {
+				timerUp=setInterval(function () {
+					numTop=numTop-distance;
+					mTween(div,'top',numTop,50,'linear')
+					Up=false;
+				},50);
+			}else if (ev.keyCode==39&&Right==true) {
+				timerRight=setInterval(function () {
+					numLeft=numLeft+distance;
+					mTween(div,'left',numLeft,50,'linear')
+					Right=false;
+					console.log(numLeft)
+				},50);
+			}else if (ev.keyCode==40&&Down==true) {
+				timerDown=setInterval(function () {
+					numTop=numTop+distance;
+					mTween(div,'top',numTop,50,'linear')
+					Down=false;
+				},50);
+			}
+		}
+		document.onkeyup = function(ev){
+			if (ev.keyCode==37) {
+				clearInterval(timerLeft);
+				Left=true;
+			} else if (ev.keyCode==38) {
+				clearInterval(timerUp);
+				Up=true;
+			}else if (ev.keyCode==39) {
+				clearInterval(timerRight);
+				Right=true;
+			}else if (ev.keyCode==40) {
+				clearInterval(timerDown);
+				Down=true;
+			}
+		}
+	</script>
+</body>
+</html>
