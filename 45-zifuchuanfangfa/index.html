@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			
+		</style>
+		<script>
+			function fn(str,search,start){
+				start = start || 0;
+				for(var i=0;i<str.length;i++){
+					if(str.charAt(i) === search){
+						return i;
+					}
+				}
+				return -1;
+			}
+			var str = 'miaov';
+			console.log(fn(str,'a'));
+		</script>
+	</head>
+
+	<body>
+		
+	</body>
+</html>
