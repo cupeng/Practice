@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			section{
+				margin: 0px;
+				/*height: 800px;*/
+				width: 530px;
+				margin: 0px auto;
+				/*background: pink;*/
+				position: relative;
+			}
+			input{
+				margin: 0px;
+				display: block;
+				height: 50px;
+				width: 150px;
+				margin: 10px auto;
+			}
+			div{
+				height: 50px;
+				width: 50px;
+				background: red;
+				position: absolute;
+				font: 20px/50px "宋体";
+				text-align: center;
+				transition: 200ms;
+				cursor: pointer;
+				z-index: 1;
+			}
+			div:hover{
+				background: pink;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="box">
+				<input type="button" name="butt" id="butt" value="自动生成100个Li" />
+		</section>
+		<script src="jquery/jquery-2.0.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var box=document.getElementById("box");
+			var butt=document.getElementById("butt");
+			var num=-1;
+			var str='';
+			var arr=['blue','yellow','red','green'];
+			butt.onclick=function(){
+				for(var i=0;i<100;i++){
+					num++;
+					str+='<div style="left:'+i%10*53+'px;top:'+(Math.floor(num/10)*53+60)+'px;background:'+arr[i%4]+';">'+i+'</div>';
+				}
+				box.innerHTML+=str;
+				divHover ();
+			};
+			function divHover () {
+				/*
+				原生版本：
+				var divs=document.getElementsByTagName('div');
+				for (let i = 0; i < divs.length; i++) {
+					divs[i].onmouseover=function () {
+						this.style.background='pink';
+						this.style.transform='scale(1.2)';
+						this.style.zIndex=10;
+					}
+					divs[i].onmouseout=function () {
+						this.style.background=arr[i%4];
+						this.style.transform='scale(1)';
+						this.style.zIndex=1;
+					}
+				}*/
+				/*jq版本*/
+				//div触摸时颜色大小层级变换
+				$('div').mouseover(function (event) {
+					$(this).css({
+						background:'pink',
+						transform:'scale(1.2)',
+						zIndex:10
+					})
+				//div鼠标离开时颜色大小层级变换为原来样子
+				}).mouseout(function () {
+					$(this).css({
+						background:arr[$(this).index()%4],
+						transform:'scale(1)',
+						zIndex:1
+					})
+				})
+			}
+		</script>
+	</body>
+</html>
