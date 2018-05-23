@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			img{
+				height: 370px;
+				width: 650px;
+			}
+			body{
+				margin: 0px;
+			}
+			#butts{
+				height: 50px;
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			input{
+				height: 30px;
+				width: 100px;
+				background: #fff;
+				border: 1px solid #000;
+				cursor: pointer;
+				font-weight: bold ;
+				outline: none;
+			}
+			#circulate{
+				margin-right: 30px;
+			}
+			.active{
+				background: pink;
+				color: red;
+			}
+			p{	
+				margin: 0px;
+				height: 50px;
+				width: 100%;
+				text-align: center;
+				font: 20px/50px "宋体";
+			}
+			#pics{
+				height: 370px;
+				width: 650px;
+				border: 5px solid pink;
+				margin: 10px auto;
+				position: relative;
+			}
+			em,strong{
+				position: absolute;
+				left: 0px;
+				height: 30px;
+				width: 100%;
+				text-align: center;
+				font: bold 20px/30px "宋体";
+				color: #fff;
+				background: rgba(0,0,0,0.4);
+			}
+			em{
+				top: 0px;
+			}
+			strong{
+				bottom: 0px;
+			}
+			a{
+				position: absolute;
+				top: 50%;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+				border-radius: 50%;
+				text-align: center;
+				font: bold 50px/50px "宋体";
+				color: #fff;
+				background: rgba(0,0,0,0.4);
+				text-decoration: none;
+			}
+			#next{
+				right: 5px;
+			}
+			#previous{
+				left: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="butts">
+			<input type="button" name="" id="circulate" value="循环播放" />
+			<input type="button" name="" id="order" value="顺序播放" />
+		</div>
+		<p>
+			循环播放
+		</p>
+		<div id="pics">
+			<img src="img/img (1).jpg" alt="" id="img"/>
+			<em>1/5</em>
+			<a href="javascript:;" id="next">></a>
+			<a href="javascript:;" id="previous"><</a>
+			<strong>第一张</strong>
+		</div>
+		<script type="text/javascript">
+			var circulate=document.getElementById('circulate');
+			var order=document.getElementById('order');
+			var ps=document.getElementsByTagName('p')[0];
+			var img=document.getElementById('img');
+			var ems=document.getElementsByTagName('em')[0];
+			var strongs=document.getElementsByTagName('strong')[0];
+			var next=document.getElementById('next');
+			var previous=document.getElementById('previous');
+			var arr=['img/img (1).jpg','img/img (2).jpg','img/img (3).jpg','img/img (4).jpg','img/img (5).jpg'];
+			var arr1=['第一张','第二张','第三张','第四张','第五张'];
+			var arr2=['顺序播放','循环播放'];
+			var onOff='循环播放';
+			var num=0;
+			circulate.onclick=function(){
+				onOff='循环播放';
+				circulate.className='active';
+				order.className='';
+				ps.innerHTML=arr2[1];
+			};
+			order.onclick=function(){
+				onOff='顺序播放';
+				circulate.className='';
+				order.className='active';
+				ps.innerHTML=arr2[0];
+			};
+			next.onclick=function(){
+				if(onOff=='循环播放'){
+					num++;
+					if(num>arr.length-1){
+						num=0;
+					}
+					img.src=arr[num];
+					ems.innerHTML=(num+1)+'/'+arr.length;
+					strongs.innerHTML=arr1[num];
+				}
+				if(onOff=='顺序播放'){
+					num++;
+					if(num==arr.length){
+						num=arr.length-1;
+						alert('已经最后一张了！');
+					}
+					img.src=arr[num];
+					ems.innerHTML=(num+1)+'/'+arr.length;
+					strongs.innerHTML=arr1[num];
+				}
+			}
+			previous.onclick=function(){
+				if(onOff=='循环播放'){
+					num--;
+					if(num<0){
+						num=arr.length-1;
+					}
+					img.src=arr[num];
+					ems.innerHTML=(num+1)+'/'+arr.length;
+					strongs.innerHTML=arr1[num];
+				}
+				if(onOff=='顺序播放'){
+					num--;
+					if(num==-1){
+						num=0;
+						alert('已经到第一张了！');
+					}
+					img.src=arr[num];
+					ems.innerHTML=(num+1)+'/'+arr.length;
+					strongs.innerHTML=arr1[num];
+				}
+			}
+		</script>
+	</body>
+</html>

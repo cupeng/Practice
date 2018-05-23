@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/1-99乘法表.css"/>
+	</head>
+	<body>
+		<p id="boxes"></p>
+		<p id="boxes1"></p>
+		<p id="boxes2"></p>
+		<p id="boxes3"></p>
+		<script type="text/javascript">
+			var boxes=document.getElementById('boxes');
+			var boxes1=document.getElementById('boxes1');
+			var boxes2=document.getElementById('boxes2');
+			var boxes3=document.getElementById('boxes3');
+			var str='';
+			var str1='';
+			var str2='';
+			var str3='';
+			for(var i=1;i<10;i++){
+				for(var j=i;j<10;j++){
+					str+='<div style="left:'+i*53+'px; top:'+j*33+'px;">'+i+'*'+j+'='+i*j+'</div>';
+				}
+			}
+			for(var i=1;i<10;i++){
+				for(var j=i;j<10;j++){
+					str+='<div style="right:'+i*53+'px; top:'+j*33+'px;">'+i+'*'+j+'='+i*j+'</div>';
+				}
+			}
+			for(var i=1;i<10;i++){
+				for(var j=i;j<10;j++){
+					str1+='<div style="left:'+i*53+'px; top:'+(10-j)*33+'px;">'+i+'*'+j+'='+i*j+'</div>';
+				}
+			}
+			for(var i=1;i<10;i++){
+				for(var j=i;j<10;j++){
+					str1+='<div style="right:'+i*53+'px; top:'+(10-j)*33+'px;">'+i+'*'+j+'='+i*j+'</div>';
+				}
+			}
+			for(var i=1;i<10;i++){
+				for(var j=10-i;j<10;j++){
+					str2+='<div style="left:'+i*53+'px; top:'+j*33+'px;">'+i+'*'+j+'='+i*j+'</div>';
+				}
+			}
+			for(var i=1;i<10;i++){
+				for(var j=10-i;j<10;j++){
+					str2+='<div style="right:'+i*53+'px; top:'+j*33+'px;">'+i+'*'+j+'='+i*j+'</div>';
+				}
+			}
+			for(var i=1;i<10;i++){
+				for(var j=10-i;j<10;j++){
+					str3+='<div style="left:'+i*53+'px; top:'+(10-j)*33+'px;">'+i+'*'+j+'='+i*j+'</div>';
+				}
+			}
+			for(var i=1;i<10;i++){
+				for(var j=10-i;j<10;j++){
+					str3+='<div style="right:'+i*53+'px; top:'+(10-j)*33+'px;">'+i+'*'+j+'='+i*j+'</div>';
+				}
+			}
+			boxes.innerHTML+=str;
+			boxes1.innerHTML+=str1;
+			boxes2.innerHTML+=str2;
+			boxes3.innerHTML+=str3;
+		 </script>
+	</body>
+</html>
