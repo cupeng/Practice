@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#div{
+				height: 500px;
+				width: 100%;
+				position: absolute;
+				top: 100px;
+				left: 100px;
+			}
+			#slideBar{
+				float: left;
+				height: 400px;
+				width: 50px;
+				border: 2px solid #000;
+				position: relative;
+			}
+			#bar{
+				height: 50px;
+				width: 50px;
+				background: pink;
+				position: absolute;
+			}
+			#box{
+				float: left;
+				height: 400px;
+				width: 200px;
+				border: 2px solid #ccc;
+				overflow: hidden;
+				position: relative;
+			}
+			#content{
+				width: 100%;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div">
+			<div id="slideBar">
+				<div id="bar"></div>
+			</div>
+			<div id="box">
+				<div id="content">
+					北京，简称“京”，中华人民共和国首都、直辖市、国家中心城市、超大城市，全国政治中心、文化中心、国际交往中心、科技创新中心，是中国共产党中央委员会、中华人民共和国中央人民政府和全国人民代表大会的办公所在地，中国中部战区司令部驻地。
+					北京位于华北平原北部，背靠燕山，毗邻天津市和河北省。北京的气候为典型的北温带半湿润大陆性季风气候。
+					北京是首批国家历史文化名城和世界上拥有世界文化遗产数最多的城市，三千多年的历史孕育了故宫、天坛、八达岭长城、颐和园等众多名胜古迹。早在七十万年前，北京周口店地区就出现了原始人群部落“北京人”。公元前1045年，北京成为蓟、燕等诸侯国的都城。公元938年以来，北京先后成为辽陪都、金中都、元大都、明清国都。1949年10月1日成为中华人民共和国首都。
+					2015年末，北京全市常住人口2170.5万人，比2014年末增加18.9万人。其中，常住外来人口822.6万人，占常住人口的比重为37.9%。2015年北京市实现地区生产总值22968.6亿元，比2014年增长6.9%。
+					2015年7月31日，国际奥委会主席巴赫宣布北京携手张家口获得2022年冬季奥林匹克运动会的举办权。北京由此成为全球首个既举办过夏季奥运会又即将举办冬季奥运会的城市。
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var slideBar=document.getElementById("slideBar");
+			var bar =document.getElementById("bar");
+			var box=document.getElementById("box");
+			var content=document.getElementById("content");
+			var maxy=slideBar.clientHeight-bar.offsetHeight;
+			var maxyContent=getBounding (content).height-box.clientHeight;
+			var scale=0;
+			bar.onmousedown=function () {
+				var top=getBounding(bar.parentNode).top;
+				var disy=event.clientY-getBounding(bar).top;
+				document.onmousemove=function () {
+					var y=event.clientY-disy-top;
+					console.log(top,disy,y);
+					if (y<0) {
+						y=0;
+					}
+					if (y>maxy) {
+						y=maxy;
+					}
+					bar.style.top=y+'px';
+					scale=y/maxy;
+					content.style.top=-scale*maxyContent+'px';
+				}
+				document.onmouseup=function () {
+					document.onmousemove=null;
+				};
+				return false;
+			};
+			function getBounding (obj) {
+				return obj.getBoundingClientRect();
+			}
+			function mScroll (obj,upper,down) {
+				obj.addEventListener('DOMMouseScroll',fn,false);
+				obj.onmousewheel=fn;
+				function fn(ev) {
+					var n;
+					if(ev.detail){
+						n = -ev.detail;
+					}else{
+						n = ev.wheelDelta;
+					}
+					if(n<0){
+						down();
+					}else{
+						upper();
+					}
+				}
+			}
+			mScroll (document,function () {
+				scale=scale+0.02;
+				if (scale>1) {
+					scale=1;
+				}
+				bar.style.top=scale*maxy+'px';
+				content.style.top=-scale*maxyContent+'px';
+			},function () {
+				scale=scale-0.02;
+				if (scale<0) {
+					scale=0;
+				}
+				bar.style.top=scale*maxy+'px';
+				content.style.top=-scale*maxyContent+'px';
+			});
+		</script>
+	</body>
+</html>
