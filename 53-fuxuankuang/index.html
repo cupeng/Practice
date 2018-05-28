@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width:50px;
+				height:30px;
+				border: 1px solid #ccc;
+				text-align: center;
+				line-height: 30px;
+				margin-top: 20px;
+				cursor: pointer;
+			}
+			.active{
+				border-color: red;
+			}
+			section{
+				width: 200px;
+				margin: 40px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<form>
+				<label id="rad1">
+					<input type="checkbox" id="rad1"/>男
+				</label>
+				<label id="rad2">
+					<input type="checkbox" id="rad2" />女
+				</label>
+				<label id="rad3">
+					<input type="checkbox" id="rad3" />保密
+				</label>
+			</form>
+			<div class="active">男</div>
+			<div>女</div>
+			<div>保密</div>
+		</section>
+		<script>
+			var divs = document.getElementsByTagName('div');
+			for(var i=0;i<divs.length;i++){
+				divs[i].onclick = function(){
+
+					if(this.className == 'active'){
+						this.className = '';
+					}else{
+						this.className = 'active';
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

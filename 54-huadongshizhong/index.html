@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<style type="text/css">
+			body{
+				margin: 0px;
+				background: url(img/11.jpg);
+			}
+			#clock{
+				margin: 0px;
+				padding: 0px;
+				margin: 300px 0px 0px 150px;
+				height: 105px;
+				width: 680px;
+			}
+			#clock li{
+				list-style: none;
+				height: 105px;
+				width: 75px;
+				float: left;
+				margin-right: 10px;
+				overflow: hidden;
+				position: relative;
+				box-shadow: 0px 0px 100px #375daf;
+				border-radius: 10px;
+			}
+			div{
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				top: 0;	
+			}
+			img{
+				height: 105px;
+				width: 75px;
+				vertical-align: top;
+				border-radius: 10px;
+			}
+			#dance{
+				height: 500px;
+				width: 500px;
+				position: absolute;
+				left: 800px;
+				top: 130px;
+			}
+			#dance div{
+				position: absolute;
+				left: 50%;
+				top: 50px;
+				height: 100px;
+				width: 100px;
+				margin-left: -50px;
+			}
+			span{
+				position: absolute;
+				left: -10px;
+				top: 50%;
+				height: 0px;
+				width: 120px;
+				border-bottom: 14px solid #394f80;
+				margin-top: -7px;
+				border-radius: 7px;
+				box-shadow: 0px 0px 30px #fff;
+				z-index: 10;
+			}
+			i{
+				position: absolute;
+				top: 0px;
+				left: 50%;
+				width: 0px;
+				height: 160px;
+				border-left: 14px solid #394f80;
+				margin-left: -7px;
+				border-radius: 7px;
+				box-shadow: 0px 0px 30px #fff;
+			}
+			#balls{
+				margin: 0px;
+				padding: 0px;
+				height: 20px;
+				width: 130px;
+				margin: 310px auto 0px;
+				display: flex;
+				justify-content: space-between;
+				position: relative;
+			}
+			#balls li{
+				list-style: none;
+				height: 100%;
+				width: 20px;
+				border-radius: 50%;
+				background: #fff;
+				box-shadow: 0px 0px 50px #375daf;
+				position: absolute;
+				top: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="clock">
+			<li>
+				<div><img src="img/0.jpg" alt="" /><img src="img/0.jpg" alt="" /></div>
+			</li>
+			<li>
+				<div><img src="img/1.jpg" alt="" /><img src="img/0.jpg" alt="" /></div>
+			</li>
+			<li>
+				<img src="img/c.jpg" alt="" />
+			</li>
+			<li>
+				<div><img src="img/3.jpg" alt="" /><img src="img/0.jpg" alt="" /></div>
+			</li>
+			<li>
+				<div><img src="img/4.jpg" alt="" /><img src="img/0.jpg" alt="" /></div>
+			</li>
+			<li>
+				<img src="img/c.jpg" alt="" />
+			</li>
+			<li>
+				<div><img src="img/6.jpg" alt="" /><img src="img/0.jpg" alt="" /></div>
+			</li>
+			<li>
+				<div><img src="img/7.jpg" alt="" /><img src="img/0.jpg" alt="" /></div>
+			</li>
+		</ul>
+		<div id="dance">
+			<div>
+				<span></span>
+				<i></i>
+			</div>
+			<ul id="balls">
+			</ul>
+		</div>
+		<script type="text/javascript" src="mTween.js"></script>
+		<script type="text/javascript" src="tween.js"></script>
+		<script type="text/javascript">
+			function getTagename (tageName,context) {
+				return (context||document).getElementsByTagName(tageName);
+			}
+			function $ (id) {
+				return document.getElementById(id);
+			}
+			var divall=document.querySelectorAll('#clock div');
+			var img=document.querySelectorAll('div img');
+			var time=getTime ();
+			//初始化
+			for (var i=0;i<time.length;i++) {
+				img[2*i].src = 'img/'+time[i]+'.jpg';
+			}
+			//调用自动滑动函数
+			for (var i=0;i<divall.length;i++) {
+				autoPlay (i);
+			}
+			//自动滑动函数
+			function autoPlay (a) {
+				var divs=document.querySelectorAll('#clock div')[a];
+				var imgs=divs.querySelectorAll('img');
+				var img=document.querySelectorAll('#clock li>img');
+				var timer=null;
+				divs.lc=time[a];
+				//定时器，每过1秒钟，每个位置上的时钟图片都随着时间相应变化
+				timer=setInterval(function(){
+					var time=getTime ();
+					//如果时钟、分钟、秒钟相应每一位如果和前一秒钟不一样的就滑动到下个相应数字
+					if (divs.lc!==time[a]) {
+						imgs[1].src = 'img/'+time[a]+'.jpg';
+						mTween(divs,'top',-105,300,'linear',function(){
+							imgs[0].src = 'img/'+time[a]+'.jpg';
+							divs.style.top = '0px';
+						});
+					}
+					//记录时钟、分钟、秒钟相应每一位的前一秒数字
+					divs.lc=time[a];
+					//点闪烁的实现
+					for(var i=0;i<img.length;i++){
+						img[i].src = 'img/c.jpg';
+					}
+					//延时半秒闪烁
+					setTimeout(function(){
+						for(var i=0;i<img.length;i++){
+							img[i].src = 'img/b.jpg';
+						}
+					}, 500)
+				}, 1000);
+			}
+			//补零函数：时钟、分钟、秒钟不大于10的话前面补‘0’
+			function toTwo (n) {
+				return n<10?'0'+n:''+n;
+			}
+			//跳动的十字
+			var dance=$('dance');
+			var divs=getTagename('div',dance)[0];
+			var balls=$('balls');
+			var str='';
+			for (var i=0;i<5;i++) {
+				str+='<li style="left:'+i*26+'px;"></li>';
+			}
+			balls.innerHTML+=str;
+			var lis=getTagename('li',balls);
+			var timer=null;	
+			//自动播放跳动的十字
+			autoPlay_dance ();
+			function autoPlay_dance () {
+				timer_dance=setInterval(function () {
+					move ();
+				},2000);
+			}
+			move ();
+			//十字和圆点移动
+			function move () {
+				//十字随时间变化上下移动
+				mTween(divs,'top',150,1000,'linear',function(){
+					mTween(divs,'top',50,1000,'linear');
+				});
+				//for (var i=0;i<5;i++) {//不能用循环做!!
+				//十字下面五个点随时间变化上下移动
+				setTimeout(function () {
+					for (i=0;i<lis.length;i++) {
+						spot_move (i);
+					}
+				},1000);
+			}
+			//十字下面五个点的运动函数
+			function spot_move (s) {
+				if (s<lis.length/2) {
+					mTween(lis[s],'top',s*15,500,'linear',function(){
+						mTween(lis[s],'top',0,500,'linear');
+					});
+				}
+				if (s>lis.length/2){
+					mTween(lis[s],'top',(lis.length-s-1)*15,500,'linear',function(){
+						mTween(lis[s],'top',0,500,'linear');
+					});
+				}
+			}
+			//获取时间
+			function getTime () {
+				var date=new Date();
+				//获取小时
+				var h=date.getHours();
+				//获取分钟
+				var m=date.getMinutes();
+				//获取秒钟
+				var s=date.getSeconds();
+				//时钟、分钟、秒钟不大于10的话前面补‘0’，然后连城字符串
+				var time=toTwo (h)+toTwo(m)+toTwo(s);
+				return time;
+			}
+			</script>
+	</body>
+</html>
